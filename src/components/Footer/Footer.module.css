@@ -1,0 +1,39 @@
+#footerContainer {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Roboto', sans-serif;
+    padding: 3rem 0;
+}
+
+.footerList {
+    list-style: none;
+}
+
+#footerContainer h3 {
+    margin: 0.5rem 0;
+}
+
+.footerListItem {
+    margin: 0.2rem 0;
+}
+
+.footerListItem:hover {
+    cursor: pointer;
+}
+
+.footerLogoWrapper {
+    width: 3rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.2rem 0;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid #bbbbbb;
+    border-radius: 0.5rem;
+}
+
+.footerLogo {
+    height: 100%;
+    width: 100%;
+}

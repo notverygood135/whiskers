@@ -1,0 +1,160 @@
+:root {
+    --veryLightPink: #fff0f8;
+    --lightPink: #f78fc9;
+    --lightPinkHover: #f7abd5;
+    --darkPink: #ff4db0;
+}
+
+.productContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.product {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    border: 0.1rem solid #cccccc;
+    border-radius: 1rem;
+    box-shadow: 0 0.1rem 0.1rem #cccccc;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    transition: transform 0.2s, border 0.2s, box-shadow 0.2s;
+}
+
+.product:hover {
+    cursor: pointer;
+    border: 0.1rem solid var(--lightPink);;
+    box-shadow: 0 0.1rem 0.1rem var(--lightPink);;
+    transition: transform 0.2s, border 0.2s, box-shadow 0.2s;
+}
+
+.imageWrapper {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productText {
+    padding: 1rem;
+}
+
+.price {
+    display: flex;
+    font-weight: 400;
+    margin-top: 1rem;
+    line-height: 1rem;
+}
+
+.price h3 {
+    font-size: 1.8rem;
+}
+
+.price h4 {
+    font-size: 1rem;
+    line-height: 0.5rem;
+}
+
+.oldPrice {
+    display: flex;
+    color: #AAAAAA;
+    margin-right: 0.2rem;
+}
+
+.buttonWrapper {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin: 1rem;
+}
+
+.buttonWrapperMobile {
+    display: none;
+}
+
+.productButton {
+    height: 100%;
+    width: 48%;    
+    border: none;
+    border-radius: 0.2rem;
+    box-shadow: 0 1px 1px #AAAAAA;
+    font-family: 'Poppins', cursive;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: background 0.2s ease-in;
+}
+
+.productButton:hover {
+    cursor: pointer;
+    background: var(--darkPink);
+    transition: background 0.2s ease-in;
+}
+
+#buyNow {
+    color: white;
+    background: var(--lightPink);
+}
+
+#buyNow:hover {
+    background: var(--darkPink);
+    transition: background 0.2s ease-in;
+}
+
+#addToCart {
+    color: var(--lightPink);
+    background: var(--veryLightPink);
+    border: 0.1rem solid var(--lightPink);
+    transition: all 0.2s ease-in;
+}
+
+#addToCart:hover {
+    color: var(--darkPink);
+    background: white;
+    border: 0.1rem solid var(--darkPink);
+    transition: all 0.2s ease-in;
+}
+
+@media screen and (max-width: 768px) {
+    .product {
+        height: 20rem;
+    }
+
+    .price h3 {
+        font-size: 1.5rem;
+    }
+    
+    .price h4 {
+        font-size: 0.8rem;
+        line-height: 0.5rem;
+    }
+
+    .buttonWrapper {
+        display: none;
+    }
+
+    .buttonWrapperMobile {
+        height: 15%;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        margin: 1rem;
+    }
+
+    .productButton {
+        font-size: 1.2rem;
+        line-height: 0.2rem;
+    }
+}
