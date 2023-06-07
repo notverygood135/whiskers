@@ -7,13 +7,29 @@ const pool = new Pool({
     port: 5432
 })
 
-const getProduct = () => {
+const getProducts = () => {
     return new Promise(function(resolve, reject) {
-        pool.query('SELECT * FROM products LIMIT 10', (error, results) => {
+        pool.query('SELECT * FROM products LIMIT 60', (error, results) => {
             if (error) {
                 reject(error);
             }
             resolve(results.rows);
+        })
+    })
+}
+
+const getProductDetails = (body) => {
+    return new Promise(function(resolve, reject) {
+        const id = body;
+        const query = 
+            `SELECT product_name, category_name, price, quantity, description, discount, products.image, discounted_price
+            FROM products JOIN categories ON products.category_id = categories.category_id
+            WHERE product_id = $1`;
+        pool.query(query, [id], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows[0]);
         })
     })
 }
@@ -45,7 +61,8 @@ const deleteProduct = (body) => {
 }
 
 module.exports = {
-    getProduct,
+    getProducts,
+    getProductDetails,
     createProduct,
     deleteProduct
 }

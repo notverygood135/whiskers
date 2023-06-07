@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import useFetch from '../../../hooks/useFetch';
 import sortByDiscount from '../../../utils/sortByDiscount';
 import ProductItem from '../../../components/ProductItem/ProductItem';
@@ -15,10 +14,12 @@ function SaleSection() {
     return (
       <ProductItem
         key={product.product_id}
+        id={product.product_id}
         image = {product.image}
         productName = {product.product_name}
         price = {product.price}
         discount = {product.discount}
+        discountedPrice = {product.discounted_price}
       />
     )
   });

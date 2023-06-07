@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import useProducts from "../../../hooks/useProducts"
 import useFetch from "../../../hooks/useFetch";
 import ProductItem from "../../../components/ProductItem/ProductItem";
 import styles from './Main.module.css'
@@ -15,10 +13,12 @@ function PopularSection() {
     return (
       <ProductItem
         key={product.product_id}
+        id={product.product_id}
         image = {product.image}
         productName = {product.product_name}
         price = {product.price}
         discount = {product.discount}
+        discountedPrice = {product.discounted_price}
       />
     )
   });

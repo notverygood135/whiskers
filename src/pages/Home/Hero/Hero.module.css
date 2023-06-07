@@ -4,8 +4,8 @@
     --darkPink: #ff4db0;
 }
 
-#heroContainer {
-    max-height: 100vh;
+#container {
+    max-height: 88vh;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -13,27 +13,27 @@
     margin-bottom: 2rem;
 }
 
-#heroImageWrapper {
+#imageWrapper {
     display: flex;
 }
 
-.heroImage {
+.image {
     width: 100%;
     z-index: -1;
 }
 
-#heroImageMobile {
+#imageMobile {
     display: none;
 }
 
-#heroTextWrapper {
+#textWrapper {
     position: absolute;
     display: flex;
     flex-direction: column;
     left: 5%;
 }
 
-#heroText {
+#text {
     font-family: 'Poppins', cursive;
     font-size: 3.8rem;
     line-height: 5rem;
@@ -42,7 +42,7 @@
     text-shadow: 0 2px 2px #AAAAAA;
 }
 
-#heroButton {
+#button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,21 +59,21 @@
     transition: background 0.2s ease-in;
 }
 
-#heroButton:hover {
+#button:hover {
     cursor: pointer;
     background: var(--darkPink);
     transition: background 0.2s ease-in;
 }   
 
 @media screen and (max-width: 425px) {
-    #heroTextWrapper {
+    #textWrapper {
         left: 0;
         top: 25%;
         width: 100%;
         align-items: center;
     }
 
-    #heroText {
+    #text {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -82,17 +82,17 @@
         line-height: 3rem;
     }
 
-    #heroButton {
+    #button {
         width: 8rem;
         height: 3rem;
         font-size: 1.2rem;
     }
 
-    .heroImage {
+    .image {
         display: none;
     }
 
-    #heroImageMobile {
+    #imageMobile {
         width: 100vw;
         height: 100vh;
         display: block;

@@ -1,22 +1,24 @@
 :root {
-    --veryLightPink: #fff0f8;
+    --veryLightPink: #fff2f8;
     --lightPink: #f78fc9;
     --lightPinkHover: #f7abd5;
     --darkPink: #ff4db0;
 }
 
-.productContainer {
+.container {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .product {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    margin: 1rem;
+    margin: 0 1rem;
     border: 0.1rem solid #cccccc;
     border-radius: 1rem;
     box-shadow: 0 0.1rem 0.1rem #cccccc;
@@ -32,22 +34,27 @@
     transition: transform 0.2s, border 0.2s, box-shadow 0.2s;
 }
 
+.product:link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .imageWrapper {
     width: 100%;
-    height: 60%;
+    min-height: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
 
-.productImage {
+.image {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.productText {
+.text {
     padding: 1rem;
 }
 
@@ -56,25 +63,21 @@
     font-weight: 400;
     margin-top: 1rem;
     line-height: 1rem;
+    color: var(--darkPink);
 }
 
 .price h3 {
     font-size: 1.8rem;
 }
 
-.price h4 {
-    font-size: 1rem;
-    line-height: 0.5rem;
-}
-
 .oldPrice {
     display: flex;
     color: #AAAAAA;
-    margin-right: 0.2rem;
+    margin-right: 0.4rem;
 }
 
-.buttonWrapper {
-    height: 10%;
+/* .buttonWrapper {
+    min-height: 10%;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -85,27 +88,25 @@
     display: none;
 }
 
-.productButton {
+.button {
     height: 100%;
     width: 48%;    
     border: none;
-    border-radius: 0.2rem;
+    border-radius: 0.25rem;
     box-shadow: 0 1px 1px #AAAAAA;
     font-family: 'Poppins', cursive;
     font-size: 1rem;
     font-weight: 700;
-    transition: background 0.2s ease-in;
 }
 
-.productButton:hover {
+.button:hover {
     cursor: pointer;
-    background: var(--darkPink);
-    transition: background 0.2s ease-in;
 }
 
 #buyNow {
     color: white;
     background: var(--lightPink);
+    transition: background 0.2s ease-in;
 }
 
 #buyNow:hover {
@@ -117,19 +118,20 @@
     color: var(--lightPink);
     background: var(--veryLightPink);
     border: 0.1rem solid var(--lightPink);
-    transition: all 0.2s ease-in;
+    transition: color 0.2s ease-in, background 0.2s ease-in, border 0.2s ease-in;
 }
 
 #addToCart:hover {
     color: var(--darkPink);
     background: white;
     border: 0.1rem solid var(--darkPink);
-    transition: all 0.2s ease-in;
-}
+    transition: color 0.2s ease-in, background 0.2s ease-in, border 0.2s ease-in;
+} */
 
 @media screen and (max-width: 768px) {
     .product {
-        height: 20rem;
+        height: 90%;
+        margin: 0 0.5rem;
     }
 
     .price h3 {
@@ -141,7 +143,7 @@
         line-height: 0.5rem;
     }
 
-    .buttonWrapper {
+    /* .buttonWrapper {
         display: none;
     }
 
@@ -153,8 +155,8 @@
         margin: 1rem;
     }
 
-    .productButton {
+    .button {
         font-size: 1.2rem;
         line-height: 0.2rem;
-    }
+    } */
 }

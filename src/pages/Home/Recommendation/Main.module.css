@@ -51,13 +51,13 @@
     max-width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 72vh;
-    margin: 1rem 0;
+    grid-template-rows: 24rem;
+    margin: 1.5rem 0;
 }
 
 @media screen and (max-width: 767px) {
     .mainSection {
-        padding: 0.5rem;
+        padding: 0 0.5rem;
     }
 
     #categories {

@@ -1,0 +1,164 @@
+:root {
+    --veryLightPink: #fff2f8;
+    --lightPink: #f78fc9;
+    --lightPinkHover: #f7abd5;
+    --darkPink: #ff4db0;
+}
+
+.details {
+    max-width: 100vw;
+    height: 88vh;
+    display: flex;
+    padding: 2rem 6rem;
+    font-family: 'Poppins', cursive;
+}
+
+.imageWrapper {
+    min-width: 40%;
+    max-width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.textWrapper {
+    margin: 2rem;
+    width: 60%;
+    position: relative;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 2.4rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+.price {
+    display: flex;
+    margin: 2rem 0;
+    color: var(--darkPink);
+    line-height: 1rem;
+}
+
+.oldPrice {
+    display: flex;
+    color: #AAAAAA;
+    margin-right: 0.8rem;
+}
+
+.buttonContainer {
+    display: flex;
+}
+
+.changeQuantityWrapper {
+    height: 3rem;
+    width: 12rem;
+    display: flex;
+    position: absolute;
+    bottom: 5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.changeQuantityButton {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--lightPink);
+    border: none;
+    color: white;
+    font-size: 3rem;
+    font-family: 'Poppins', cursive;
+    transition: background 0.2s ease-in-out;
+}
+
+.changeQuantityText {
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px var(--lightPink) solid;
+    border-bottom: 1px var(--lightPink) solid;
+}
+
+.changeQuantityButton:hover {
+    cursor: pointer;
+    background: var(--darkPink);
+    transition: background 0.2s ease-in-out;
+}
+
+.buttonWrapper {
+    height: 3rem;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.buttonWrapperMobile {
+    display: none;
+}
+
+.button {
+    height: 100%;
+    width: 48%;    
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 1px #AAAAAA;
+    font-family: 'Poppins', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+#buyNow {
+    color: white;
+    background: var(--lightPink);
+    transition: background 0.2s ease-in;
+}
+
+#buyNow:hover {
+    background: var(--darkPink);
+    transition: background 0.2s ease-in;
+}
+
+#addToCart {
+    color: var(--lightPink);
+    background: var(--veryLightPink);
+    border: 0.1rem solid var(--lightPink);
+    transition: color 0.2s ease-in, background 0.2s ease-in, border 0.2s ease-in;
+}
+
+#addToCart:hover {
+    color: var(--darkPink);
+    background: white;
+    border: 0.1rem solid var(--darkPink);
+    transition: color 0.2s ease-in, background 0.2s ease-in, border 0.2s ease-in;
+}
+
+.description {
+    font-family: 'Poppins', cursive;
+    margin: 2rem;
+}

@@ -1,10 +1,13 @@
+import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment } from "react-icons/ai";
 
 function Navbar() {
   return (
     <nav id={styles.navContainer}>
-      <div id={styles.navLogoWrapper}><h1 id={styles.logo}>Whiskers</h1></div>
+      <div id={styles.navLogoWrapper}>
+        <NavLink to='/'><h1 id={styles.logo}>Whiskers</h1></NavLink>
+      </div>
       <ul className={styles.navMenu}>
         <li className={styles.navItem}>Categories<AiOutlineDown id={styles.categoriesIcon}/></li>
         <li className={styles.navItem}>Deals</li>
@@ -12,7 +15,7 @@ function Navbar() {
         <li className={styles.navItem}>Support</li>
       </ul>
       <div id={styles.navSearchWrapper}>
-        <input type="text" id={styles.searchBar} name="search" placeholder="Search product"/>
+        <input type="text" id={styles.searchBar} name="search" placeholder="Search for product, brand, etc."/>
         <button type="submit" id={styles.searchButton}>
           <AiOutlineSearch className={styles.icon} />
         </button>

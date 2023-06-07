@@ -62,7 +62,17 @@ app.get('/categories', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
-    product_model.getProduct()
+    product_model.getProducts()
+    .then(response => {
+        res.status(200).send(response);
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+});
+
+app.get('/products/:id', (req, res) => {
+    product_model.getProductDetails(req.params.id)
     .then(response => {
         res.status(200).send(response);
     })
