@@ -4,19 +4,19 @@
     --textBlack: #231f1e;
 }
 
-#navContainer {
+.container {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr;
     font-family: 'Poppins', cursive;
     height: 12vh;
     width: 100%;
-    box-shadow: 0 2px 2px #AAAAAA;
+    box-shadow: 0 0.1rem 0.1rem #AAAAAA;
     z-index: 1;
     background: white;
     position: relative;
 }
 
-#navLogoWrapper {
+.logoWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,13 +24,13 @@
     text-decoration: none;
 }
 
-#logo {
+.logo {
     font-size: 2rem;
     font-family: 'Poppins', sans-serif;
     color: var(--lightPink);
 }
 
-#navSearchWrapper {
+.searchWrapper {
     display: flex;
     position: relative;
     justify-content: center;
@@ -38,7 +38,7 @@
     padding: 0.4rem;
 }
 
-#searchBar {
+.searchBar {
     width: 100%;
     padding-left: 1rem;
     height: 80%;
@@ -47,7 +47,7 @@
     border-radius: 500px;
 }
 
-#searchButton {
+.searchButton {
     position: absolute;
     right: 2.4vh;
     display: flex;
@@ -61,12 +61,12 @@
     border: none;
 }
 
-#searchButton:hover {
+.searchButton:hover {
     cursor: pointer;
     background: var(--lightPinkHover);
 }
 
-.navMenu {
+.menu {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -80,6 +80,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    width: 100%;
     padding: 0 0.8rem;
     position: relative;
     font-size: 1.2rem;
@@ -108,7 +109,7 @@
     padding-left: 0.5rem;
 }
 
-.navMenuMobile {
+.menuMobile {
     display: none;
 }
 

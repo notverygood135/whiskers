@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: `${process.env.USER}`,
@@ -13,6 +14,7 @@ const getCategory = () => {
             if (error) {
                 reject(error);
             }
+            console.log('helo');
             resolve(results.rows);
         })
     })

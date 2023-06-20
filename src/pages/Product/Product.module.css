@@ -3,6 +3,7 @@
     --lightPink: #f78fc9;
     --lightPinkHover: #f7abd5;
     --darkPink: #ff4db0;
+    --textBlack: #231f1e;
 }
 
 .details {
@@ -38,14 +39,17 @@
 h1 {
     font-size: 2rem;
     line-height: 2.4rem;
+    color: var(--textBlack);
 }
 
 h2 {
     font-size: 1.2rem;
+    color: var(--textBlack);
 }
 
 p {
     font-size: 1rem;
+    color: var(--textBlack);
 }
 
 .price {
@@ -123,7 +127,6 @@ p {
     width: 48%;    
     border: none;
     border-radius: 0.25rem;
-    box-shadow: 0 1px 1px #AAAAAA;
     font-family: 'Poppins', cursive;
     font-size: 1.2rem;
     font-weight: 700;

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home';
 import Product from './pages/Product/Product';
 import Footer from './components/Footer/Footer'
+import Login from './pages/Login/Login';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/product/:name" exact element={<Product />} />
+          <Route path="/login" exact element={<Login />} />
           <Route component={Error} />
         </Routes>
         <Footer />

@@ -1,0 +1,107 @@
+:root {
+    --veryLightPink: #fff2f8;
+    --lightPink: #f78fc9;
+    --lightPinkHover: #f7abd5;
+    --darkPink: #ff4db0;
+    --textBlack: #231f1e;
+}
+
+.container {
+    position: relative;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+}
+
+.formContainer {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formWrapper {
+    width: 60%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', cursive;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0.2rem #AAAAAA;
+    background: white;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formField {
+    width: 80%;
+    height: 2rem;
+    margin: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.signUp {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    width: 86%;
+    height: 3rem;
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', cursive;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 0.8rem;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in;
+}
+
+.button:hover {
+    cursor: pointer;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in;
+}
+
+#signInButton {
+    background: var(--lightPink);
+    border: none;
+    color: white;
+}
+
+#signInButton:hover {
+    background: var(--darkPink);
+}
+
+#signUpButton {
+    background: var(--veryLightPink);
+    color: var(--lightPink);
+    border: 0.12rem solid var(--lightPink);
+}
+
+#signUpButton:hover {
+    background: white;
+    color: var(--darkPink);
+}
+
+.image {
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+}

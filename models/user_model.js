@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Pool = require('pg').Pool;
 const pool = new Pool({
     user: `${process.env.USER}`,
@@ -20,6 +21,7 @@ const getUser = () => {
 
 const createUser = (body) => {
     return new Promise(function(resolve, reject) {
+        console.log(body);
         const { user_id, first_name, last_name, username, password, email, balance } = body;
         pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
         [user_id, first_name, last_name, username, password, email, balance],

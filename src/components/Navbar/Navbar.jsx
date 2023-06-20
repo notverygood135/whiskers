@@ -1,36 +1,39 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment, AiOutlineLogin, AiOutlineForm } from "react-icons/ai";
 
 function Navbar() {
   return (
-    <nav id={styles.navContainer}>
-      <div id={styles.navLogoWrapper}>
-        <NavLink to='/'><h1 id={styles.logo}>Whiskers</h1></NavLink>
+    <nav className={styles.container}>
+      <div className={styles.logoWrapper}>
+        <NavLink to='/'><h1 className={styles.logo}>Whiskers</h1></NavLink>
       </div>
-      <ul className={styles.navMenu}>
+      <ul className={styles.menu}>
         <li className={styles.navItem}>Categories<AiOutlineDown id={styles.categoriesIcon}/></li>
         <li className={styles.navItem}>Deals</li>
         <li className={styles.navItem}>Delivery</li>
         <li className={styles.navItem}>Support</li>
       </ul>
-      <div id={styles.navSearchWrapper}>
-        <input type="text" id={styles.searchBar} name="search" placeholder="Search for product, brand, etc."/>
-        <button type="submit" id={styles.searchButton}>
+      <div className={styles.searchWrapper}>
+        <input type="text" className={styles.searchBar} name="search" placeholder="Search for product, brand, etc."/>
+        <button type="submit" className={styles.searchButton}>
           <AiOutlineSearch className={styles.icon} />
         </button>
       </div>
-      <ul className={styles.navMenu}>
+      <ul className={styles.menu}>
+        <NavLink to='/login' className={styles.navItem}>
+          <li className={styles.navItem}>
+            Login 
+            <AiOutlineLogin className={styles.icon} />
+          </li>
+        </NavLink>
         <li className={styles.navItem}>
-          Account
-          <AiOutlineUser className={styles.icon} />
-        </li>
-        <li className={styles.navItem}>
-          Cart
-          <AiOutlineShoppingCart className={styles.icon} />
+          Register
+          <AiOutlineForm className={styles.icon} />
         </li>
       </ul>
-      <ul className={styles.navMenuMobile}>
+
+      <ul className={styles.menuMobile}>
         <li className={styles.navItem}>
           <AiOutlineTags className={styles.icon} />
           Deals
