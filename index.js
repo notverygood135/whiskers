@@ -1,7 +1,10 @@
+require('dotenv');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const app = express();
+
 const port = 3000;
 
 const corsOptions = {
@@ -14,6 +17,7 @@ const user_model = require('./models/user_model');
 const category_model = require('./models/category_model');
 const product_model = require('./models/product_model');
 const { response } = require('express');
+const { restart } = require('nodemon');
 
 app.use(express.json());
 app.use(function (req, res, next) {
@@ -58,7 +62,9 @@ app.post('/users/login', (req, res) => {
             res.status(400).send('User does not exist!');
         }
         else if (await bcrypt.compare(req.body.password, user.password)) {
-            res.status(200).send(user);
+            const accessToken = generateAccessToken(user);
+            const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+            res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
         }
         else {
             res.send('Not allowed');
@@ -67,6 +73,10 @@ app.post('/users/login', (req, res) => {
     .catch(error => {
         res.status(500).send(error);
     })
+});
+
+app.post('/users/token', (req, res) => {
+    const refreshToken = req.body.token;
 });
 
 app.delete('/users/:id', (req, res) => {
@@ -128,6 +138,22 @@ app.delete('/products/:id', (req, res) => {
         res.status(500).send(error);
     })
 })
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}
+
+function generateAccessToken(user) {
+    console.log(user);
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+}
 
 app.listen(port, () => {
     console.log(`App running on port ${port}`);

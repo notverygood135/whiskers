@@ -14,7 +14,6 @@ function ProductDetails() {
   if (error) console.log(error);
 
   const productDetails = JSON.parse(data);
-  console.log(productDetails);
   const { category, description, discount, image, priceWhole, priceDecimal, newPriceWhole, newPriceDecimal, productName, quantity } = productDetails ? getProductDetails(productDetails) : {}
 
   function handleAdd() {

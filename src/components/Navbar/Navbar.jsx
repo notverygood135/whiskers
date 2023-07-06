@@ -1,8 +1,10 @@
+import LoginContextProvider from '../../context/LoginContext';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment, AiOutlineLogin, AiOutlineForm } from "react-icons/ai";
 
 function Navbar() {
+
   return (
     <nav className={styles.container}>
       <div className={styles.logoWrapper}>
@@ -20,7 +22,8 @@ function Navbar() {
           <AiOutlineSearch className={styles.icon} />
         </button>
       </div>
-      <ul className={styles.menu}>
+
+      {/* <ul className={styles.menu}>
         <NavLink to='/login' className={styles.navItem}>
           <li className={styles.navItem}>
             Login 
@@ -31,8 +34,25 @@ function Navbar() {
           Register
           <AiOutlineForm className={styles.icon} />
         </li>
-      </ul>
+      </ul> */}
 
+      <LoginContextProvider child={(
+        <ul className={styles.menu}>
+          <li>
+            <NavLink to='/login' className={styles.navItem}>
+              Login 
+              <AiOutlineLogin className={styles.icon} />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to='/register' className={styles.navItem}>
+              Register
+              <AiOutlineForm className={styles.icon} />
+            </NavLink> 
+          </li>
+        </ul>
+      )} />
+      
       <ul className={styles.menuMobile}>
         <li className={styles.navItem}>
           <AiOutlineTags className={styles.icon} />
