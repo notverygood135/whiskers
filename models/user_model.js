@@ -1,3 +1,4 @@
+const { nanoid } = require("nanoid");
 require('dotenv').config();
 const Pool = require('pg').Pool;
 const pool = new Pool({
@@ -20,16 +21,16 @@ const getUser = () => {
 }
 
 const createUser = (body) => {
+    console.log(body)
     return new Promise(function(resolve, reject) {
-        console.log(body);
-        const { user_id, first_name, last_name, username, password, email, balance } = body;
+        const { user_id, first_name, last_name, username, password, email } = body;
         pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-        [user_id, first_name, last_name, username, password, email, balance],
+        [nanoid(), first_name, last_name, username, password, email, 100000],
         (error, results) => {
             if (error) {
                 reject(error);
             }
-            resolve(`A new user has been added: ${results.rows[0]}`);
+            resolve(`Created successfully`);
         })
     })
 }

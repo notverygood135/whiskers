@@ -6,18 +6,19 @@ const LoginContext = createContext({
     setAuth: () => {}
 });
 
-const LoginContextProvider = ({ child }) => {
+const LoginProvider = ({ child }) => {
   const [isAuth, setAuth] = useState(localStorage.getItem('isAuth') == 'true' || false);
   const [token, setToken] = useState(localStorage.getItem('token'));
   useEffect(() => {
-    localStorage.setItem('isAuth', isAuth)
+    localStorage.setItem('isAuth', isAuth);
+    localStorage.setItem('token', token)
   }, [isAuth]);
-  console.log(isAuth);
   return (
-    <LoginContext.Provider value={{isAuth, token, setAuth}}>
+    <LoginContext.Provider value={{isAuth, token, setAuth, setToken}}>
       {child}
     </LoginContext.Provider>
   )
 }
 
-export default LoginContextProvider;
+export default LoginProvider;
+export { LoginContext };

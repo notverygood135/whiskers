@@ -14,7 +14,6 @@ const getCategory = () => {
             if (error) {
                 reject(error);
             }
-            console.log('helo');
             resolve(results.rows);
         })
     })
