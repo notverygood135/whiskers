@@ -2,10 +2,21 @@ GET http://localhost:3000/users
 
 ###
 
-POST http://localhost:3000/users/login
+POST http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
     "username": "pti",
     "password": "123456"
 }
+
+###
+
+POST http://localhost:3001/auth/logout
+Content-Type: application/json
+
+###
+
+POST http://localhost:3001/auth/refresh
+Content-Type: application/json
+Cookie: refreshToken=a

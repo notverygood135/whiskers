@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { LoginContext } from '../../context/LoginContext';
 
 export default function Personal() {
-  const { isAuth } = useContext(LoginContext);
+  const { isAuth, token, setAuth } = useContext(LoginContext);
   return (
     !isAuth ?
     <ul className={styles.menu}>

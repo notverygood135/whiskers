@@ -8,7 +8,7 @@ export default function Register() {
   const onSubmit = data => {
     console.log(data);
     if (data.password == data.confirmPassword) {
-      fetch('http://localhost:3001/users/register', {
+      fetch('http://localhost:3001/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

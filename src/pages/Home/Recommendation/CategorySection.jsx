@@ -1,6 +1,7 @@
 import Category from './Category';
 import useFetch from "../../../hooks/useFetch";
 import styles from './Main.module.css'
+import { NavLink } from 'react-router-dom';
 
 function CategorySection() {
   const { data, loading, error } = useFetch('http://localhost:3000/categories');
@@ -13,6 +14,7 @@ function CategorySection() {
     return (
       <Category
         key={category.category_id}
+        categoryId={category.category_id}
         categoryName={category.category_name}
         categoryImage={category.image}
       />

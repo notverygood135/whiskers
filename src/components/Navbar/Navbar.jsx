@@ -6,9 +6,6 @@ import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, A
 import { LoginContext } from '../../context/LoginContext';
 
 function Navbar() {
-  const { isAuth, token, setAuth } = useContext(LoginContext);
-  console.log(token);
-
   return (
     <nav className={styles.container}>
       <div className={styles.logoWrapper}>
