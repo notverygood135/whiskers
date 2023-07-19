@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function Category(props) {
   const { categoryId, categoryName, categoryImage } = props;
-  const url = `/shop/${categoryName.replace(/\s+/g, '-')}?cid=${categoryId}`;
+  const url = `/shop/?cid=${categoryId}&s=popularity`;
 
   return (
     <NavLink to={url}>

@@ -22,7 +22,7 @@ function App() {
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<Register />} />
           <Route path="/account" exact element={<Account />} />
-          <Route path="/shop/:name" exact element={<Shop />} />
+          <Route path="/shop" exact element={<Shop />} />
           <Route component={Error} />
         </Routes>
         <Footer />
