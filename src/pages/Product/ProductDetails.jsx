@@ -1,10 +1,13 @@
 import { useSearchParams } from 'react-router-dom'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import useFetch from '../../hooks/useFetch';
 import getProductDetails from '../../utils/getProductDetails';
 import styles from './Product.module.css'
+import { LoginContext } from '../../context/LoginContext';
 
 function ProductDetails() {
+  const { isAuth, token, setAuth } = useContext(LoginContext);
+  console.log(token);
   const [searchParams, setSearchParams] = useSearchParams();
   const [buyQuantity, setBuyQuantity] = useState(0);
   const id = searchParams.get('pid');

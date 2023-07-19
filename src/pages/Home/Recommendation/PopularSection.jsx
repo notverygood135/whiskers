@@ -18,7 +18,7 @@ function PopularSection() {
         productName = {product.product_name}
         price = {product.price}
         discount = {product.discount}
-        discountedPrice = {product.discounted_price}
+        discountedPrice = {product.discounted_price}     
       />
     )
   });

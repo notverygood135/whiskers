@@ -1,10 +1,11 @@
-import LoginContextProvider from '../../context/LoginContext';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import Personal from './Personal';
 import styles from './Navbar.module.css';
-import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment, AiOutlineLogin, AiOutlineForm } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment } from "react-icons/ai";
+import { LoginContext } from '../../context/LoginContext';
 
 function Navbar() {
-
   return (
     <nav className={styles.container}>
       <div className={styles.logoWrapper}>
@@ -23,36 +24,10 @@ function Navbar() {
         </button>
       </div>
 
-      {/* <ul className={styles.menu}>
-        <NavLink to='/login' className={styles.navItem}>
-          <li className={styles.navItem}>
-            Login 
-            <AiOutlineLogin className={styles.icon} />
-          </li>
-        </NavLink>
-        <li className={styles.navItem}>
-          Register
-          <AiOutlineForm className={styles.icon} />
-        </li>
-      </ul> */}
+      {/* <LoginContextProvider child = {<Personal />}>
+      </LoginContextProvider> */}
+      <Personal />
 
-      <LoginContextProvider child={(
-        <ul className={styles.menu}>
-          <li>
-            <NavLink to='/login' className={styles.navItem}>
-              Login 
-              <AiOutlineLogin className={styles.icon} />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/register' className={styles.navItem}>
-              Register
-              <AiOutlineForm className={styles.icon} />
-            </NavLink> 
-          </li>
-        </ul>
-      )} />
-      
       <ul className={styles.menuMobile}>
         <li className={styles.navItem}>
           <AiOutlineTags className={styles.icon} />

@@ -6,17 +6,28 @@ export default function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const onSubmit = data => {
-    fetch('http://localhost:3000/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => {
-      console.log(response.text());
-      navigate('/');
-    })
+    console.log(data);
+    if (data.password == data.confirmPassword) {
+      fetch('http://localhost:3001/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        return(response.text());
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
+    else {
+      console.log('le epic trollge');
+    }
   };
 
   return (
@@ -27,10 +38,14 @@ export default function Register() {
         <div className={styles.formWrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <h2>Sign up</h2>
-            <input placeholder="E-mail" className={styles.formField} {...register('email', { required: true })} />
+            <div className={styles.name}>
+              <input placeholder="First Name" className={styles.formField} id={styles.nameField} {...register('first_name', { required: true })} />
+              <input placeholder="Last Name" className={styles.formField} id={styles.nameField} {...register('last_name', { required: true })} />
+            </div>
             <input placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
             <input placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
-            <input placeholder="Confirm Password" className={styles.formField} {...register('confirmpassword', { required: true })} />
+            <input placeholder="Confirm Password" className={styles.formField} {...register('confirmPassword', { required: true })} />
+            <input placeholder="E-mail" className={styles.formField} {...register('email', { required: true })} />
             <button className={styles.button} id={styles.signInButton} type='submit'>Sign up</button>
           </form>
         </div>

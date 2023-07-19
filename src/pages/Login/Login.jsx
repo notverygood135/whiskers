@@ -1,21 +1,32 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import { LoginContext } from "../../context/LoginContext";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const { isAuth, setToken, setAuth } = useContext(LoginContext);
   const onSubmit = data => {
-    fetch('http://localhost:3000/users/login', {
+    fetch('http://localhost:3001/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      credentials: 'include'
     })
     .then(response => {
-      console.log(response.text());
+      return response.json();
+    })
+    .then(data => {
+      setAuth(data != null);
+      setToken(data.accessToken ? data.accessToken : '');
       navigate('/');
+    })
+    .catch((error) => {
+      console.log(error);
     })
   };
 

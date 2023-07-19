@@ -47,7 +47,7 @@
 .formField {
     width: 80%;
     height: 2rem;
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 0.5rem;
     font-size: 1rem;
 }
@@ -112,4 +112,17 @@
     width: 100%;
     object-fit: cover;
     z-index: -1;
+}
+
+.name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0.5rem;
+}
+
+#nameField {
+    width: 100%;
+    margin: 0 0.5rem;
 }

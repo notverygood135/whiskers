@@ -1,4 +1,4 @@
-import { Navigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './ProductItem.module.css'
 import { AiOutlineShoppingCart, AiTwotoneShopping } from "react-icons/ai";
 import separateComma from '../../utils/separateComma';
@@ -17,7 +17,7 @@ function ProductItem(props) {
           <img src='/vecteezy_black-and-white-cat-close-up_2412790.jpg' alt="test" className={styles.image}/>
         </div>
         <div className={styles.text}>
-          <h3>{truncate(productName, 65)}</h3>
+          <h3>{truncate(productName, 21)}</h3>
           {discount ? 
             <div className={styles.price}>
               <del className={styles.oldPrice}>

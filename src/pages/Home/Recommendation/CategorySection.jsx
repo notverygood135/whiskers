@@ -13,6 +13,7 @@ function CategorySection() {
     return (
       <Category
         key={category.category_id}
+        categoryId={category.category_id}
         categoryName={category.category_name}
         categoryImage={category.image}
       />
