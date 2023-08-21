@@ -8,9 +8,68 @@ const pool = new Pool({
     port: 5432
 })
 
-const getProducts = () => {
+const getHomeProducts = () => {
+    console.log('here');
     return new Promise(function(resolve, reject) {
-        pool.query('SELECT * FROM products LIMIT 60', (error, results) => {
+        pool.query('SELECT * FROM products', [], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        })
+    })
+}
+
+const getProducts = (params) => {
+    let sqlFlag = 0;
+    let paramCount = 1;
+    let query = 'SELECT * FROM products';
+    let paramsArray = [];
+    const { s, min, max } = params;
+    const cid = params?.cid.split(',');
+    // console.log(cid);
+
+    function queryDelimiter(param) {
+        if (sqlFlag == 0) {
+            sqlFlag = 1;
+            return ' WHERE ';
+        }
+        if (param == 'cid') {
+            return ' OR ';
+        }
+        return ' AND ';
+    }
+
+    if (cid[0] != '0') {
+        cid.forEach(id => {
+            query += queryDelimiter('cid') + `category_id = $${paramCount}`;
+            paramsArray.push(+id);
+            paramCount++;
+        });
+    }
+
+    if (min != '0') {
+        query += queryDelimiter() + `price >= $${paramCount}`;
+        paramsArray.push(+min);
+        paramCount++;
+    }
+
+    if (max != '0') {
+        query += queryDelimiter() + `price <= $${paramCount}`;
+        paramsArray.push(+max);
+        paramCount++;
+    }
+
+    if (s == 'price') {
+        query += ' ORDER BY price ASC';
+    }
+
+    // console.log(cid);
+    console.log(query);
+    console.log(paramsArray);
+    
+    return new Promise(function(resolve, reject) {
+        pool.query(query, paramsArray, (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -62,6 +121,7 @@ const deleteProduct = (body) => {
 }
 
 module.exports = {
+    getHomeProducts,
     getProducts,
     getProductDetails,
     createProduct,

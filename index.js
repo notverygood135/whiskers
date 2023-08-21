@@ -75,10 +75,18 @@ app.get('/products/:id', (req, res) => {
     })
 });
 
-app.get('/products/:cid/:page', (req, res) => {
-    console.log(req.params.cid)
-    console.log(req.params.page)
-    product_model.getProducts()
+app.get('/home', (req, res) => {
+    product_model.getHomeProducts()
+    .then(response => {
+        res.status(200).send(response);
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+})
+
+app.get('/products/:cid/:s/:min/:max', (req, res) => {
+    product_model.getProducts(req.params)
     .then(response => {
         res.status(200).send(response);
     })

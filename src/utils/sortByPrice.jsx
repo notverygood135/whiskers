@@ -1,6 +1,6 @@
 function sortByPrice(products) {
     products?.sort((a, b) => {
-        return b.props.price - a.props.price
+        return a.props.children.props.discountedPrice - b.props.children.props.discountedPrice
     });
     return products;
 }

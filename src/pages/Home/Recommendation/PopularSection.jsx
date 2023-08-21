@@ -3,7 +3,7 @@ import ProductItem from "../../../components/ProductItem/ProductItem";
 import styles from './Main.module.css'
 
 function PopularSection() {
-  const { data, loading, error } = useFetch('http://localhost:3000/products');
+  const { data, loading, error } = useFetch('http://localhost:3000/home');
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.log(error);
