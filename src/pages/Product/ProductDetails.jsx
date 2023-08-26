@@ -35,7 +35,7 @@ function ProductDetails() {
     <>
     <div className={styles.details}>
       <div className={styles.imageWrapper}>
-        <img src='/vecteezy_black-and-white-cat-close-up_2412790.jpg' alt={productName} className={styles.image}/>
+        <img src={`/products/${image}`} alt={productName} className={styles.image}/>
       </div>
       <div className={styles.textWrapper}>
         <h1>{productName}</h1>

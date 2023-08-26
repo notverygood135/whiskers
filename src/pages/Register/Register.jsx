@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 
 export default function Register() {

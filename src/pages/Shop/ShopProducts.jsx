@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import styles from "./Shop.module.css";
-import sortByPrice from "../../utils/sortByPrice";
-import filterByPrice from "../../utils/filterByPrice";
 
 export default function ShopProducts(props) {
   const { data } = props;

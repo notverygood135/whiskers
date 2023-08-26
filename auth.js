@@ -1,9 +1,10 @@
+const { nanoid } = import("nanoid");
 require('dotenv');
 const bcrypt = require('bcrypt');
 const express = require('express');
+const sessions = require('express-session');
+const cookieParser = require("cookie-parser");
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
 const app = express();
 
 const port = 3001;
@@ -12,32 +13,20 @@ const corsOptions = {
     origin: true,
     credentials: true,
 };
-const cookieOptions = {
-    httpOnly: true,
-    secure: false,
-    sameSite: 'none'
-}
-
-const accessTokenCookieOptions = {
-    ...cookieOptions,
-    expires: Date.now() + 15 * 60 * 1000,
-    maxAge: 15 * 60 * 1000 * 1000
-};
-
-const refreshTokenCookieOptions = {
-    ...cookieOptions,
-    expires: Date.now() + 60 * 60 * 1000,
-    maxAge: 60 * 60 * 1000 * 1000
-}
 
 app.options('*', cors(corsOptions));
 
 const user_model = require('./models/user_model');
-const category_model = require('./models/category_model');
-const product_model = require('./models/product_model');
+const session_model = require('./models/session_model');
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(sessions({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }
+}))
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
@@ -76,15 +65,14 @@ app.post('/auth/login', (req, res) => {
             res.status(400).send('User does not exist!');
         }
         else if (await bcrypt.compare(req.body.password, user.password)) {
-            const accessToken = generateAccessToken(user);
-            const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-            res.cookie('accessToken', accessToken, accessTokenCookieOptions);
-            res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions);
-            res.cookie('loggedIn', true, {
-                ...accessTokenCookieOptions,
-                httpOnly: false
-            });
-            res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
+            const session = req.session;
+            console.log(`auth: ${req.session.id}`);
+            const user_id = user.user_id;
+            const session_id = session.id;
+            session.user_id = user.user_id;
+            session.authenticated = true;
+            session_model.createSession({ session_id, user_id });
+            res.status(200).send('logged in');
         }
         else {
             res.send('Invalid password');
@@ -95,47 +83,37 @@ app.post('/auth/login', (req, res) => {
     })
 });
 
-app.post('/auth/logout', (req, res) => {
+app.get('/auth/logout', (req, res) => {
     try {
-        res.cookie('accessToken', '', { maxAge: -1 });
-        res.cookie('refreshToken', '', { maxAge: -1 });
-        res.cookie('refresh_token', '', { maxAge: -1 });
-        res.cookie('loggedIn', '', { maxAge: -1 });
-        res.status(200).send('logged out');
+        // res.cookie('accessToken', '', { maxAge: -1 });
+        // res.cookie('refreshToken', '', { maxAge: -1 });
+        // res.cookie('loggedIn', '', { maxAge: -1 });
+        const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+        session_model.deleteSession({ session_id })
+        .then(response => {
+            req.session.destroy();
+            res.status(200).send(response);
+        });
     }
     catch (err) {
         console.log(err);
     }
 })
 
-app.post('/auth/refresh', (req, res) => {
-    console.log(req.headers)
-    try {
-        if (!req.cookies) {
-            res.status(403).send('no refresh tokens')
+function authenticate(req, res, next) {
+    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    // console.log(session_id)
+    session_model.getSession({ session_id })
+    .then(response => {
+        if (response) {
+            return next();
         }
-        else {
-            res.status(200).send({ refreshToken: refreshToken });
-        }
-    }
-    catch (err) {
-        console.log(err)
-    }
-});
-
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (token == null) return res.sendStatus(401);
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
+        res.status(400).send('session broke');
     });
 }
 
-function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+module.exports = {
+    authenticate
 }
 
 app.listen(port, () => {

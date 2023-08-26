@@ -14,20 +14,20 @@ function ProductItem(props) {
     <div className={styles.container}>
       <div className={styles.product}>
         <div className={styles.imageWrapper}>
-          <img src='/vecteezy_black-and-white-cat-close-up_2412790.jpg' alt="test" className={styles.image}/>
+          <img src={`/products/${image}`} alt="test" className={styles.image}/>
         </div>
         <div className={styles.text}>
           <h3>{truncate(productName, 21)}</h3>
           {discount ? 
             <div className={styles.price}>
               <del className={styles.oldPrice}>
-                <h3>${priceWhole}.{priceDecimal}</h3>
+                <h3>${priceWhole}.{priceDecimal.toFixed(0)}</h3>
               </del>
-              <h3>${newPriceWhole}.{newPriceDecimal}</h3>
+              <h3>${newPriceWhole}.{newPriceDecimal.toFixed(0)}</h3>
             </div>
             :
             <div className={styles.price}>
-              <h3>${priceWhole}.{priceDecimal}</h3>
+              <h3>${priceWhole}.{priceDecimal.toFixed(0)}</h3>
             </div>
           }
         </div>

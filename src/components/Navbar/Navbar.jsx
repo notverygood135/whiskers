@@ -23,9 +23,7 @@ function Navbar() {
           <AiOutlineSearch className={styles.icon} />
         </button>
       </div>
-
-      {/* <LoginContextProvider child = {<Personal />}>
-      </LoginContextProvider> */}
+      
       <Personal />
 
       <ul className={styles.menuMobile}>

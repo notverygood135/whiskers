@@ -1,5 +1,9 @@
 require('dotenv');
+const { authenticate } = require('./auth.js');
 const express = require('express');
+const fileUpload = require('express-fileupload');
+// const sessions = require('express-session');
+const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
 
@@ -14,14 +18,24 @@ app.options('*', cors(corsOptions));
 const user_model = require('./models/user_model');
 const category_model = require('./models/category_model');
 const product_model = require('./models/product_model');
+const session_model = require('./models/session_model');
 const { response } = require('express');
 const { restart } = require('nodemon');
 
 app.use(express.json());
+// app.use(sessions({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { secure: false }
+// }))
+app.use(cookieParser());
+app.use(fileUpload());
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 
@@ -95,15 +109,44 @@ app.get('/products/:cid/:s/:min/:max', (req, res) => {
     })
 });
 
-app.post('/products', (req, res) => {
-    product_model.createProduct(req.body)
-    .then(response => {
-        res.status(200).send(response);
+app.post('/upload', (req, res) => {
+    const file = req.files.image
+    file.mv(`${__dirname}/public/products/${file.name}`, (err) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).send('successs')
     })
-    .catch(error => {
-        res.status(500).send(error);
-    })
+    if (!req.files) {
+        return res.status(400).send("No files were uploaded.");
+    }
+    // console.log(req.files.image);
 });
+
+app.post('/products', authenticate, (req, res) => {
+    let data = req.body;
+    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    session_model.getSession({ session_id })
+    .then(response => {
+        data = {...data, user_id: response.user_id};
+        product_model.createProduct(data)
+        .then(response => {
+            res.status(200).send(response)
+        })
+        .catch(error => {
+            res.status(500).send(response)
+        });
+    });
+    
+    // console.log(req.cookies);
+    // product_model.createProduct(req.body)
+    // .then(response => {
+    //     res.status(200).send(response)
+    // })
+    // .catch(error => {
+    //     res.status(500).send(response)
+    // })
+})
 
 app.delete('/products/:id', (req, res) => {
     product_model.deleteProduct(req.params.id)

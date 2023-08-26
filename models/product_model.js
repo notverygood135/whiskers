@@ -1,3 +1,4 @@
+const { nanoid } = require('nanoid');
 require('dotenv').config();
 const Pool = require('pg').Pool;
 const pool = new Pool({
@@ -9,7 +10,6 @@ const pool = new Pool({
 })
 
 const getHomeProducts = () => {
-    console.log('here');
     return new Promise(function(resolve, reject) {
         pool.query('SELECT * FROM products', [], (error, results) => {
             if (error) {
@@ -63,10 +63,6 @@ const getProducts = (params) => {
     if (s == 'price') {
         query += ' ORDER BY price ASC';
     }
-
-    // console.log(cid);
-    console.log(query);
-    console.log(paramsArray);
     
     return new Promise(function(resolve, reject) {
         pool.query(query, paramsArray, (error, results) => {
@@ -95,15 +91,18 @@ const getProductDetails = (body) => {
 }
 
 const createProduct = (body) => {
+    // const { product_name, category_id, seller_id, price, quantity, description, discount, image } = body;
     return new Promise(function(resolve, reject) {
-        const { product_id, product_name, category_id, seller_id, price, quantity, description, discount, image } = body;
+        const { product_name, category_id, user_id, price, quantity, description, discount, image } = body;
+        const product_id = nanoid();
+        console.log(user_id);
         pool.query('INSERT INTO products VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-        [product_id, product_name, category_id, seller_id, price, quantity, description, discount, image],
+        [product_id, product_name, category_id, user_id, price, quantity, description, discount, image],
         (error, results) => {
             if (error) {
                 reject(error);
             }
-            resolve(`A new product has been added: ${results.rows[0]}`);
+            resolve(`A new product has been added`);
         })
     })
 }

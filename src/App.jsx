@@ -9,6 +9,7 @@ import Register from './pages/Register/Register';
 import LoginProvider from './context/LoginContext';
 import Account from './pages/Account/Account';
 import Shop from './pages/Shop/Shop';
+import Sell from './pages/Sell/Sell';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" exact element={<Register />} />
           <Route path="/account" exact element={<Account />} />
           <Route path="/shop" exact element={<Shop />} />
+          <Route path="/sell" exact element={<Sell />} />
           <Route component={Error} />
         </Routes>
         <Footer />

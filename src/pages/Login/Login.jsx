@@ -7,7 +7,7 @@ import { LoginContext } from "../../context/LoginContext";
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const { isAuth, setToken, setAuth } = useContext(LoginContext);
+  const { isAuth, setAuth } = useContext(LoginContext);
   const onSubmit = data => {
     fetch('http://localhost:3001/auth/login', {
       method: 'POST',
@@ -18,11 +18,10 @@ export default function Login() {
       credentials: 'include'
     })
     .then(response => {
-      return response.json();
+      return response.text();
     })
     .then(data => {
       setAuth(data != null);
-      setToken(data.accessToken ? data.accessToken : '');
       navigate('/');
     })
     .catch((error) => {
