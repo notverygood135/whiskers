@@ -1,11 +1,22 @@
 import { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Personal from './Personal';
 import styles from './Navbar.module.css';
 import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment } from "react-icons/ai";
 import { LoginContext } from '../../context/LoginContext';
 
 function Navbar() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate()  
+
+  function onSubmit(data) {
+    const search = data.search;
+    const url = search ? `/shop/?search=${search}` : `/shop`;
+    navigate(url);
+    // console.log(url)
+  }
+
   return (
     <nav className={styles.container}>
       <div className={styles.logoWrapper}>
@@ -17,12 +28,18 @@ function Navbar() {
         <li className={styles.navItem}>Delivery</li>
         <li className={styles.navItem}>Support</li>
       </ul>
-      <div className={styles.searchWrapper}>
-        <input type="text" className={styles.searchBar} name="search" placeholder="Search for product, brand, etc."/>
+      <form className={styles.searchWrapper} onSubmit={handleSubmit(onSubmit)}>
+        <input 
+          type="text" 
+          className={styles.searchBar} 
+          name="search" 
+          placeholder="Search for product, brand, etc."
+          {...register('search')}
+        />
         <button type="submit" className={styles.searchButton}>
           <AiOutlineSearch className={styles.icon} />
         </button>
-      </div>
+      </form>
       
       <Personal />
 

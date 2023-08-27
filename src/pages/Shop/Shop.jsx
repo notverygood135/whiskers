@@ -10,7 +10,8 @@ export default function Shop() {
   const s = searchParams.get('s');
   const min = searchParams.get('min') || 0;
   const max = searchParams.get('max') || 0;
-  const { data, loading, error } = useFetch(`http://localhost:3000/products/${cid}/${s}/${min}/${max}`);
+  const search = searchParams.get('search')?.replace(' ', '%20') || 0;
+  const { data, loading, error } = useFetch(`http://localhost:3000/products/${cid}/${s}/${min}/${max}/${search}`);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.log(error);

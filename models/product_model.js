@@ -27,7 +27,7 @@ const getProducts = (params) => {
     let paramsArray = [];
     const { s, min, max } = params;
     const cid = params?.cid.split(',');
-    // console.log(cid);
+    const search = params?.search;
 
     function queryDelimiter(param) {
         if (sqlFlag == 0) {
@@ -64,6 +64,10 @@ const getProducts = (params) => {
         query += ' ORDER BY price ASC';
     }
     
+    if (search != '0') {
+        query += queryDelimiter() + `product_name LIKE '%${search}%'`
+    }
+
     return new Promise(function(resolve, reject) {
         pool.query(query, paramsArray, (error, results) => {
             if (error) {

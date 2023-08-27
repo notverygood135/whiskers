@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFetch from "../../hooks/useFetch";
-import { nanoid } from "nanoid";
+import styles from "./Sell.module.css"
 
 export default function Sell() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -53,29 +53,33 @@ export default function Sell() {
 
   return (
     <>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input 
-        type='file'
-        id='name'
-        accept=".png, .jpg, .jpeg"
-        {...register('image', {
-          required: true,
-          onChange: handleChange
-        })} 
-      />
-      <label htmlFor="">
-        <select {...register('category_id', {required: true})}>
-          {categories}
-        </select>
-      </label>
-      <input placeholder="Name"{...register('product_name', {required: true})} />
-      <input placeholder="Quantity" {...register('quantity', {required: true})} />
-      <input placeholder="Price" {...register('price', {required: true})} />
-      <input placeholder="Discount" {...register('discount', {required: true})} />
-      <input placeholder="Description" {...register('description', {required: true})} />
-      <button type='submit'>Finish</button>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.upload}>
+      <div className={styles.imageWrapper}>
+        {preview && <img src={preview} className={preview} />}
+        <input 
+          type='file'
+          id='name'
+          accept=".png, .jpg, .jpeg"
+          {...register('image', {
+            required: true,
+            onChange: handleChange
+          })} 
+        />
+      </div>
+      <div className={styles.textWrapper}>
+        <label htmlFor="">
+          <select {...register('category_id', {required: true})}>
+            {categories}
+          </select>
+        </label>
+        <input placeholder="Name"{...register('product_name', {required: true})} />
+        <input placeholder="Quantity" {...register('quantity', {required: true})} />
+        <input placeholder="Price" {...register('price', {required: true})} />
+        <input placeholder="Discount" {...register('discount', {required: true})} />
+        <input placeholder="Description" {...register('description', {required: true})} />
+        <button type='submit'>Finish</button>
+      </div>
     </form>
-    {preview && <img src={preview} className={preview} />}
     </> 
   )
 }

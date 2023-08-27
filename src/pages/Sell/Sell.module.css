@@ -1,0 +1,80 @@
+:root {
+    --veryLightPink: #fff2f8;
+    --lightPink: #f78fc9;
+    --lightPinkHover: #f7abd5;
+    --darkPink: #ff4db0;
+    --textBlack: #231f1e;
+}
+
+.upload {
+    max-width: 100vw;
+    height: 88vh;
+    display: flex;
+    padding: 2rem 6rem;
+    font-family: 'Poppins', cursive;
+}
+
+input[type=file] {
+    color:red;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+    width: 0;
+}
+
+.details {
+    max-width: 100vw;
+    height: 88vh;
+    display: flex;
+    padding: 2rem 6rem;
+    font-family: 'Poppins', cursive;
+}
+
+.imageWrapper {
+    min-width: 40%;
+    max-width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--textBlack);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.textWrapper {
+    margin: 2rem;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 2.4rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    color: var(--textBlack);
+}
+
+p {
+    font-size: 1rem;
+    color: var(--textBlack);
+}
+
+.buttonContainer {
+    display: flex;
+}
+
+.button:hover {
+    cursor: pointer;
+}

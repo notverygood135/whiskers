@@ -99,7 +99,7 @@ app.get('/home', (req, res) => {
     })
 })
 
-app.get('/products/:cid/:s/:min/:max', (req, res) => {
+app.get('/products/:cid/:s/:min/:max/:search', (req, res) => {
     product_model.getProducts(req.params)
     .then(response => {
         res.status(200).send(response);
