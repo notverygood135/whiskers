@@ -4,22 +4,39 @@
     --lightPinkHover: #f7abd5;
     --darkPink: #ff4db0;
     --textBlack: #231f1e;
+    --textGray: #bababa;
 }
 
 .upload {
     max-width: 100vw;
-    height: 88vh;
+    height: 75vh;
     display: flex;
     padding: 2rem 6rem;
     font-family: 'Poppins', cursive;
 }
 
+label {
+    margin: 0;
+}
+
+.imageInput {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--textGray);
+    margin: 0;
+}
+
 input[type=file] {
-    color:red;
+    display: none;
 }
 
 input[type=file]::-webkit-file-upload-button {
-    visibility: hidden;
     width: 0;
 }
 
@@ -38,18 +55,22 @@ input[type=file]::-webkit-file-upload-button {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     overflow: hidden;
-    border: 1px solid var(--textBlack);
+    border: 0.3rem dashed var(--textGray);
+    border-radius: 1rem;
 }
 
 .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    z-index: -1;
 }
 
 .textWrapper {
-    margin: 2rem;
+    margin: 0 2rem;
     width: 60%;
     height: 100%;
     display: flex;
@@ -69,6 +90,57 @@ h2 {
 p {
     font-size: 1rem;
     color: var(--textBlack);
+}
+
+.dropdownWrapper {
+    height: 3rem;
+    margin: 1rem 0;
+}
+
+.dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding-left: 1rem;
+    outline: none;
+    border-radius: 0.5rem;
+    border: 2px solid var(--textGray);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    background: none;
+}
+
+.dropdown:focus {
+    border-color: var(--lightPink);
+}
+
+option {
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    height: 10rem;
+}
+
+.textboxNumber {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.textboxNumber .textbox {
+    width: 25%;
+}
+
+.textbox {
+    height: 1rem;
+    padding: 1rem;
+    margin: 0.5rem 0;
+}
+
+#textboxDescription {
+    height: 4rem;
 }
 
 .buttonContainer {

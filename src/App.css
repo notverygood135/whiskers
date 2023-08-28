@@ -7,3 +7,19 @@
     text-decoration: none;
     color: inherit;
 }
+
+input[type=text], textarea {
+    border-radius: 0.5rem;
+    border: 2px solid var(--textGray);
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type=text]:focus, textarea:focus {
+    border-color: var(--lightPink);
+}
+
+input[type=text]:hover {
+    cursor:text;
+}

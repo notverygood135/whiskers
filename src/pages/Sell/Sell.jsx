@@ -55,28 +55,35 @@ export default function Sell() {
     <>
     <form onSubmit={handleSubmit(onSubmit)} className={styles.upload}>
       <div className={styles.imageWrapper}>
-        {preview && <img src={preview} className={preview} />}
+        <label htmlFor="name" className={styles.imageInput}>
+          {!preview && <h1>Select Image</h1>}
+        </label>
         <input 
           type='file'
           id='name'
           accept=".png, .jpg, .jpeg"
+          
           {...register('image', {
             required: true,
             onChange: handleChange
           })} 
         />
+        {preview && <img src={preview} className={styles.image} />}
       </div>
       <div className={styles.textWrapper}>
-        <label htmlFor="">
-          <select {...register('category_id', {required: true})}>
+        <label htmlFor="" className={styles.dropdownWrapper}>
+          <select {...register('category_id', {required: true})} className={styles.dropdown}>
+            <option value="" disabled selected hidden>Select your option</option>
             {categories}
           </select>
         </label>
-        <input placeholder="Name"{...register('product_name', {required: true})} />
-        <input placeholder="Quantity" {...register('quantity', {required: true})} />
-        <input placeholder="Price" {...register('price', {required: true})} />
-        <input placeholder="Discount" {...register('discount', {required: true})} />
-        <input placeholder="Description" {...register('description', {required: true})} />
+        <input type='text' placeholder="Name"{...register('product_name', {required: true})} className={styles.textbox}/>
+        <div className={styles.textboxNumber}>
+          <input type='text' placeholder="Quantity" {...register('quantity', {required: true})} className={styles.textbox}/>
+          <input type='text' placeholder="Price" {...register('price', {required: true})} className={styles.textbox}/>
+          <input type='text' placeholder="Discount" {...register('discount', {required: true})} className={styles.textbox}/>
+        </div>
+        <textarea placeholder="Description" {...register('description', {required: true})} className={styles.textbox} id={styles.textboxDescription}/>
         <button type='submit'>Finish</button>
       </div>
     </form>

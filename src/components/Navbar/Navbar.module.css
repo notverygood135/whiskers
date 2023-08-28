@@ -38,7 +38,7 @@
     padding: 0.4rem;
 }
 
-.searchBar {
+#searchBar {
     width: 100%;
     padding-left: 1rem;
     height: 80%;

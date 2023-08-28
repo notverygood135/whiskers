@@ -37,8 +37,8 @@ export default function Login() {
         <div className={styles.formWrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <h2>Login</h2>
-            <input placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
-            <input placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
+            <input type='text' placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
+            <input type='text' placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
             <button className={styles.button} id={styles.signInButton} type='submit'>Login</button>
           </form>
           <div className={styles.signUp}>

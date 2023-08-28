@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import useFetch from "../../hooks/useFetch";
+import styles from './Sell.module.css'
 
 export default function Dropdown(props) {
   const { register, formState: { errors } } = useForm();

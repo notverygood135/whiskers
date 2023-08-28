@@ -31,7 +31,7 @@ function Navbar() {
       <form className={styles.searchWrapper} onSubmit={handleSubmit(onSubmit)}>
         <input 
           type="text" 
-          className={styles.searchBar} 
+          id={styles.searchBar} 
           name="search" 
           placeholder="Search for product, brand, etc."
           {...register('search')}

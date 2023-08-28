@@ -39,13 +39,13 @@ export default function Register() {
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <h2>Sign up</h2>
             <div className={styles.name}>
-              <input placeholder="First Name" className={styles.formField} id={styles.nameField} {...register('first_name', { required: true })} />
-              <input placeholder="Last Name" className={styles.formField} id={styles.nameField} {...register('last_name', { required: true })} />
+              <input type='text' placeholder="First Name" className={styles.formField} id={styles.nameField} {...register('first_name', { required: true })} />
+              <input type='text' placeholder="Last Name" className={styles.formField} id={styles.nameField} {...register('last_name', { required: true })} />
             </div>
-            <input placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
-            <input placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
-            <input placeholder="Confirm Password" className={styles.formField} {...register('confirmPassword', { required: true })} />
-            <input placeholder="E-mail" className={styles.formField} {...register('email', { required: true })} />
+            <input type='text' placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
+            <input type='text' placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
+            <input type='text' placeholder="Confirm Password" className={styles.formField} {...register('confirmPassword', { required: true })} />
+            <input type='text' placeholder="E-mail" className={styles.formField} {...register('email', { required: true })} />
             <button className={styles.button} id={styles.signInButton} type='submit'>Sign up</button>
           </form>
         </div>
