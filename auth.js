@@ -72,7 +72,7 @@ app.post('/auth/login', (req, res) => {
             session.user_id = user.user_id;
             session.authenticated = true;
             session_model.createSession({ session_id, user_id });
-            res.status(200).send('logged in');
+            res.status(200).send(true);
         }
         else {
             res.send('Invalid password');
@@ -102,7 +102,7 @@ app.get('/auth/logout', (req, res) => {
 
 function authenticate(req, res, next) {
     const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
-    // console.log(session_id)
+    // console.log(req.cookies);
     session_model.getSession({ session_id })
     .then(response => {
         if (response) {

@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Personal from './Personal';
 import styles from './Navbar.module.css';
 import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineDown, AiOutlineSearch, AiOutlineTags, AiOutlineComment } from "react-icons/ai";
-import { LoginContext } from '../../context/LoginContext';
 
 function Navbar() {
   const { register, handleSubmit, formState: { errors } } = useForm();

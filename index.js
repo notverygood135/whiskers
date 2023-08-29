@@ -2,7 +2,6 @@ require('dotenv');
 const { authenticate } = require('./auth.js');
 const express = require('express');
 const fileUpload = require('express-fileupload');
-// const sessions = require('express-session');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
@@ -19,16 +18,11 @@ const user_model = require('./models/user_model');
 const category_model = require('./models/category_model');
 const product_model = require('./models/product_model');
 const session_model = require('./models/session_model');
+const cart_model = require('./models/cart_model');
 const { response } = require('express');
 const { restart } = require('nodemon');
 
 app.use(express.json());
-// app.use(sessions({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { secure: false }
-// }))
 app.use(cookieParser());
 app.use(fileUpload());
 app.use(function (req, res, next) {
@@ -137,15 +131,6 @@ app.post('/products', authenticate, (req, res) => {
             res.status(500).send(response)
         });
     });
-    
-    // console.log(req.cookies);
-    // product_model.createProduct(req.body)
-    // .then(response => {
-    //     res.status(200).send(response)
-    // })
-    // .catch(error => {
-    //     res.status(500).send(response)
-    // })
 })
 
 app.delete('/products/:id', (req, res) => {
@@ -156,6 +141,36 @@ app.delete('/products/:id', (req, res) => {
     .catch(error => {
         res.status(500).send(error);
     })
+})
+
+app.get('/cart', (req, res) => {
+    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    session_model.getSession({ session_id })
+    .then(response => {
+        cart_model.getCart(response.user_id)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+    });
+})
+
+app.post('/cart', authenticate, (req, res) => {
+    let data = req.body;
+    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    session_model.getSession({ session_id })
+    .then(response => {
+        data = {...data, user_id: response.user_id};
+        cart_model.addToCart(data)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    });
 })
 
 app.listen(port, () => {

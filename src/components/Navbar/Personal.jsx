@@ -30,8 +30,10 @@ export default function Personal() {
       </NavLink>
     </li>
     <li className={styles.navItem}>
-      Cart
-      <AiOutlineShoppingCart className={styles.icon} />
+      <NavLink to='/cart' className={styles.navItem}>
+        Cart
+        <AiOutlineShoppingCart className={styles.icon} />
+      </NavLink>
     </li>
   </ul>
   );

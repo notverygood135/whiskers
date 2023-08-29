@@ -10,7 +10,9 @@ function useFetch(url) {
     setLoading(true);
     setData(null);
     setError(null);
-    fetch(url)
+    fetch(url, {
+      credentials: 'include'
+    })
     .then(response => {
       return response.text();
     })

@@ -21,7 +21,7 @@ export default function Login() {
       return response.text();
     })
     .then(data => {
-      setAuth(data != null);
+      setAuth(data)
       navigate('/');
     })
     .catch((error) => {

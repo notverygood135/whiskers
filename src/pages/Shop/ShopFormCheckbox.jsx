@@ -1,3 +1,5 @@
+import styles from "./Shop.module.css";
+
 export default function ShopFormCheckbox(props) {
   const { categoryName, categoryId, handleCategory, checked } = props;
 

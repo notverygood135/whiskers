@@ -1,17 +1,18 @@
 import { useSearchParams } from 'react-router-dom'
 import { useState, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
 import getProductDetails from '../../utils/getProductDetails';
 import styles from './Product.module.css'
 import { LoginContext } from '../../context/LoginContext';
 
 function ProductDetails() {
-  const { isAuth, token, setAuth } = useContext(LoginContext);
-  console.log(token);
+  const { isAuth, setAuth } = useContext(LoginContext);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [buyQuantity, setBuyQuantity] = useState(0);
-  const id = searchParams.get('pid');
-  const { data, loading, error } = useFetch(`http://localhost:3000/products/${id}`);
+  const [buyQuantity, setBuyQuantity] = useState(1);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const pid = searchParams.get('pid');
+  const { data, loading, error } = useFetch(`http://localhost:3000/products/${pid}`);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.log(error);
@@ -21,14 +22,38 @@ function ProductDetails() {
 
   function handleAdd() {
     if (buyQuantity < quantity) {
-      setBuyQuantity(prevQuantity => prevQuantity + 1);
+      setBuyQuantity(buyQuantity + 1);
     }
   }
 
   function handleSubtract() {
-    if (buyQuantity) {
-      setBuyQuantity(prevQuantity => prevQuantity - 1);
+    if (buyQuantity > 1) {
+      setBuyQuantity(buyQuantity - 1);
     }
+  }
+
+  function handleChange(event) {
+    const inputQuantity = +event.target.value;
+    if (inputQuantity > quantity) {
+      setBuyQuantity(quantity);
+    }
+    else if (inputQuantity < 1) {
+      setBuyQuantity(1);
+    }
+    else {
+      setBuyQuantity(inputQuantity);
+    }
+  }
+
+  function onSubmit() {
+    fetch('http://localhost:3000/cart', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({quantity: buyQuantity, product_id: pid})
+    })
   }
 
   return (
@@ -51,17 +76,26 @@ function ProductDetails() {
           <div className={styles.price}>
             <h1>${priceWhole}.{priceDecimal}</h1>
           </div>}
-        <div className={styles.buttonContainer}>
+        <form className={styles.buttonContainer} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.changeQuantityWrapper}>
-            <button className={styles.changeQuantityButton} onClick={handleSubtract}>-</button>
-            <div className={styles.changeQuantityText}><h3>{buyQuantity}</h3></div>
-            <button className={styles.changeQuantityButton} onClick={handleAdd}>+</button>
+            <button type='button' className={styles.changeQuantityButton} onClick={handleSubtract}>-</button>
+            <div className={styles.buyInputWrapper}>
+              <input 
+                value={buyQuantity}
+                className={styles.buyInput}
+                {...register(
+                  'quantity', 
+                  {onChange: e => handleChange(e)}
+                )}
+              />
+            </div>
+            <button type='button' className={styles.changeQuantityButton} onClick={handleAdd}>+</button>
           </div>
           <div className={styles.buttonWrapper}>
-            <button className={styles.button} id={styles.buyNow}>Buy now</button>
-            <button className={styles.button} id={styles.addToCart}>Add to cart</button>
+            <button type='submit' className={styles.button} id={styles.buyNow}>Buy now</button>
+            <button type='submit' className={styles.button} id={styles.addToCart}>Add to cart</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
     <div className={styles.description}>

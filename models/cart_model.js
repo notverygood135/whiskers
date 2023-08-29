@@ -11,7 +11,7 @@ const pool = new Pool({
 
 const getCart = () => {
     return new Promise(function(resolve, reject) {
-        pool.query('SELECT * FROM cart', (error, results) => {
+        pool.query('SELECT product_name, cart.quantity, price, discounted_price, image FROM cart JOIN products ON cart.product_id = products.product_id', (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -21,9 +21,10 @@ const getCart = () => {
 }
 
 const addToCart = (body) => {
-    const { userID, productID, quantity } = body;
+    const { user_id, product_id, quantity } = body;
+    console.log(body);
     return new Promise(function(resolve, reject) {
-        pool.query('INSERT INTO products VALUES ($1, $2, $3) RETURNING *', [userID, productID, quantity], 
+        pool.query('INSERT INTO cart VALUES ($1, $2, $3, CURRENT_TIMESTAMP) RETURNING *', [user_id, product_id, quantity], 
         (error, results) => {
             if (error) {
                 reject(error);
