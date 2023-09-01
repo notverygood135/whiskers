@@ -22,6 +22,7 @@ const session_model = require('./models/session_model');
 app.use(express.json());
 app.use(cookieParser());
 app.use(sessions({
+    name: 'session',
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -88,7 +89,7 @@ app.get('/auth/logout', (req, res) => {
         // res.cookie('accessToken', '', { maxAge: -1 });
         // res.cookie('refreshToken', '', { maxAge: -1 });
         // res.cookie('loggedIn', '', { maxAge: -1 });
-        const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+        const session_id = req.cookies['session'].split(':')[1].split('.')[0];
         session_model.deleteSession({ session_id })
         .then(response => {
             req.session.destroy();
@@ -101,8 +102,7 @@ app.get('/auth/logout', (req, res) => {
 })
 
 function authenticate(req, res, next) {
-    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
-    // console.log(req.cookies);
+    const session_id = req.cookies['session'].split(':')[1].split('.')[0];
     session_model.getSession({ session_id })
     .then(response => {
         if (response) {

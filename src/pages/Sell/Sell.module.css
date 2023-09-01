@@ -12,7 +12,6 @@
     height: 75vh;
     display: flex;
     padding: 2rem 6rem;
-    font-family: 'Poppins', cursive;
 }
 
 label {
@@ -45,7 +44,6 @@ input[type=file]::-webkit-file-upload-button {
     height: 88vh;
     display: flex;
     padding: 2rem 6rem;
-    font-family: 'Poppins', cursive;
 }
 
 .imageWrapper {
@@ -108,7 +106,6 @@ p {
     outline: none;
     border-radius: 0.5rem;
     border: 2px solid var(--textGray);
-    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     background: none;
 }
@@ -119,7 +116,6 @@ p {
 
 option {
     font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
     height: 10rem;
 }
 

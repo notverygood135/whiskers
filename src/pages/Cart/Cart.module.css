@@ -1,0 +1,144 @@
+:root {
+    --veryLightPink: #fff2f8;
+    --lightPink: #f78fc9;
+    --lightPinkHover: #f7abd5;
+    --darkPink: #ff4db0;
+    --textBlack: #231f1e;
+}
+
+p, del {
+    font-size: 1.2rem;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px #AAAAAA solid;;
+    box-shadow: 0 0.1rem 0.1rem #AAAAAA;
+}
+
+#infoColumn {
+    margin-left: 1rem;
+}
+
+input[type=checkbox] {
+    width: 1rem;
+    height: 1rem;
+}
+
+.infoWrapper {
+    width: 30vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.image {
+    width: 8vw;
+    height: 8vw;
+    margin: 0 1rem;
+    object-fit: cover;
+}
+
+.priceWrapper {
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price {
+    display: flex;
+    margin: 2rem 0;
+    color: var(--textBlack);
+    line-height: 1rem;
+}
+
+.oldPrice {
+    display: flex;
+    color: #AAAAAA;
+    margin-right: 0.8rem;
+}
+
+.changeQuantityWrapper {
+    height: 2.4rem;
+    width: 8.4rem;
+    display: flex;
+    justify-content: center;
+    margin-right: 5rem;
+    border: 1px var(--lightPink) solid;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.quantity {
+    height: 2.4rem;
+    width: 8.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5rem;
+}
+
+.changeQuantityButton {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--lightPink);
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+    transition: background 0.2s ease-in-out;
+}
+
+.buyInput {
+    width: 3.6rem;
+    height: 2.4rem;
+    text-align: center;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+}
+
+.changeQuantityButton:hover {
+    cursor: pointer;
+    background: var(--darkPink);
+    transition: background 0.2s ease-in-out;
+}
+
+.total {
+    width: 15vw;
+}
+
+.delete {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.checkout {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: white;
+    border-top: 0.1rem solid #AAAAAA;
+    border-bottom: 0.1rem solid #AAAAAA;
+    font-size: 1.2rem;
+}
+
+.checkoutButton {
+    width: 10rem;
+    height: 3rem;
+    font-size: 1.5rem;
+}

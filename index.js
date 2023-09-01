@@ -119,7 +119,7 @@ app.post('/upload', (req, res) => {
 
 app.post('/products', authenticate, (req, res) => {
     let data = req.body;
-    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    const session_id = req.cookies['session'].split(':')[1].split('.')[0];
     session_model.getSession({ session_id })
     .then(response => {
         data = {...data, user_id: response.user_id};
@@ -144,7 +144,7 @@ app.delete('/products/:id', (req, res) => {
 })
 
 app.get('/cart', (req, res) => {
-    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    const session_id = req.cookies['session'].split(':')[1].split('.')[0];
     session_model.getSession({ session_id })
     .then(response => {
         cart_model.getCart(response.user_id)
@@ -159,16 +159,33 @@ app.get('/cart', (req, res) => {
 
 app.post('/cart', authenticate, (req, res) => {
     let data = req.body;
-    const session_id = req.cookies['connect.sid'].split(':')[1].split('.')[0];
+    const session_id = req.cookies['session'].split(':')[1].split('.')[0];
     session_model.getSession({ session_id })
     .then(response => {
         data = {...data, user_id: response.user_id};
         cart_model.addToCart(data)
         .then(response => {
-            console.log(response);
+            res.status(200).send(response);
         })
         .catch(error => {
-            console.log(error);
+            res.status(500).send(error);
+        });
+    });
+})
+
+app.delete('/cart', authenticate, (req, res) => {
+    let data = req.body;
+    console.log(req.body);
+    const session_id = req.cookies['session'].split(':')[1].split('.')[0];
+    session_model.getSession({ session_id })
+    .then(response => {
+        data = {...data, user_id: response.user_id};
+        cart_model.deleteFromCart(data)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
         });
     });
 })

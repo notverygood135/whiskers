@@ -11,8 +11,9 @@ const pool = new Pool({
 
 const getCart = () => {
     return new Promise(function(resolve, reject) {
-        pool.query('SELECT product_name, cart.quantity, price, discounted_price, image FROM cart JOIN products ON cart.product_id = products.product_id', (error, results) => {
+        pool.query('SELECT cart.product_id, product_name, cart.quantity as quantity, products.quantity as max_quantity, price, discounted_price, image FROM cart JOIN products ON cart.product_id = products.product_id', (error, results) => {
             if (error) {
+                console.log(error);
                 reject(error);
             }
             resolve(results.rows);
@@ -34,7 +35,22 @@ const addToCart = (body) => {
     })
 }
 
+const deleteFromCart = (body) => {
+    const { user_id, product_id } = body;
+    console.log(body);
+    return new Promise(function(resolve, reject) {
+        pool.query('DELETE FROM cart WHERE user_id = $1 AND product_id = $2', [user_id, product_id],
+        (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve('Deleted product');
+        })
+    })
+}
+
 module.exports = {
     getCart,
-    addToCart
+    addToCart,
+    deleteFromCart
 }

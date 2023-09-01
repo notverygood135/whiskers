@@ -54,6 +54,12 @@ function ProductDetails() {
       },
       body: JSON.stringify({quantity: buyQuantity, product_id: pid})
     })
+    .then(response => {
+      return response.text()
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   return (
@@ -68,9 +74,9 @@ function ProductDetails() {
         {productDetails?.discount ? 
           <div className={styles.price}>
             <del className={styles.oldPrice}>
-              <h1>${priceWhole}.{priceDecimal}</h1>
+              <h1>${priceWhole}.{priceDecimal.toFixed(0)}</h1>
             </del>
-            <h1>${newPriceWhole}.{newPriceDecimal}</h1>
+            <h1>${newPriceWhole}.{newPriceDecimal.toFixed(0)}</h1>
           </div>
           :
           <div className={styles.price}>
