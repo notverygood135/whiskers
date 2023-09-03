@@ -12,6 +12,7 @@ import Shop from './pages/Shop/Shop';
 import Sell from './pages/Sell/Sell';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
+import Success from './pages/Checkout/Success';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/sell" exact element={<Sell />} />
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/checkout" exact element={<Checkout />} />
+          <Route path="/success" exact element={<Success />} />
           <Route component={Error} />
         </Routes>
         <Footer />

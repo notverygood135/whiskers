@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from './Footer.module.css'
+import stripeLogo from '../../assets/footer/stripe.svg'
 import visaLogo from '../../assets/footer/Visa_2021.svg'
 import mastercardLogo from '../../assets/footer/Mastercard_2019_logo.svg'
 import paypalLogo from '../../assets/footer/PayPal_Logo_Icon_2014.svg'
@@ -34,6 +35,7 @@ function Footer() {
       <div>
         <h3>Payment</h3>
         <ul className={styles.footerList}>
+        <li className={styles.footerLogoWrapper}><img src={stripeLogo} alt="Stripe" className={styles.footerLogo}/></li>
           <li className={styles.footerLogoWrapper}><img src={visaLogo} alt="Visa" className={styles.footerLogo}/></li>
           <li className={styles.footerLogoWrapper}><img src={mastercardLogo} alt="MasterCard" className={styles.footerLogo}/></li>
           <li className={styles.footerLogoWrapper}><img src={paypalLogo} alt="PayPal" className={styles.footerLogo}/></li>

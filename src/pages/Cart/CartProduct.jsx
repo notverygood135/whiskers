@@ -4,7 +4,7 @@ import styles from './Cart.module.css'
 import { AiFillDelete } from "react-icons/ai";
 
 export default function CartProduct(props) {
-  const { id, image, productName, quantity, maxQuantity, price, discountedPrice, checkedAll, checkedProducts, deleteProduct } = props;
+  const { id, sellerId, image, productName, quantity, maxQuantity, price, discountedPrice, checkedAll, checkedProducts, deleteProduct } = props;
   const [checked, setChecked] = useState(false);
   const [buyQuantity, setBuyQuantity] = useState(quantity);
   const { register, getValues, setValue, formState: { errors } } = useForm();
@@ -15,7 +15,7 @@ export default function CartProduct(props) {
   }, [checkedAll]);
 
   useEffect(() => {
-    checkedProducts(id, getValues().checked , getValues().quantity * discountedPrice);
+    checkedProducts(id, productName, getValues().checked , getValues().quantity * discountedPrice, buyQuantity, sellerId, image, discountedPrice);
   }, [checked, buyQuantity])
 
   function handleAdd() {

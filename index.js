@@ -3,6 +3,7 @@ const { authenticate } = require('./auth.js');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const cookieParser = require("cookie-parser");
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const cors = require('cors');
 const app = express();
 
@@ -188,6 +189,89 @@ app.delete('/cart', authenticate, (req, res) => {
             res.status(500).send(error);
         });
     });
+})
+
+app.post('/checkout', authenticate, async (req, res) => {
+    let data = req.body;
+    const id = data.map(product => product.id);
+    let quantity = {}
+    data.forEach(product => {
+        quantity[product.id] =  product.quantity;
+    })
+    product_model.getCheckoutProducts(id)
+    .then(async response => {
+        try {
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                mode: 'payment',
+                line_items: response.map(product => {
+                    return {
+                        price_data: {
+                            currency: 'usd',
+                            product_data: {
+                                name: product.product_name
+                            },
+                            unit_amount: product.discounted_price * 100
+                        },
+                        quantity: quantity[product.product_id]
+                    }
+                }),
+                success_url: `${process.env.CLIENT_URL}/success`,
+                cancel_url:  `${process.env.CLIENT_URL}/cart`
+            })
+
+            // const a = response.map(product => {
+            //     console.log(quantity[product.product_id]);
+            //     return {
+            //         price_data: {
+            //             currency: 'usd',
+            //             product_data: {
+            //                 name: product.product_name
+            //             },
+            //             unit_amount: product.discounted_price * 100
+            //         },
+            //         quantity: quantity[product.product_id]
+            //     }
+            // });
+            // console.log(a);
+            res.json({ url: session.url })
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).json({ error: error.message });
+        }
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+    
+    // try {
+    //     const session = await stripe.checkout.session.create({
+    //         payment_method_types: ['card'],
+    //         mode: 'payment',
+    //         line_items: ,
+    //         success_url: `${process.env.CLIENT_URL}/success`,
+    //         cancel_url:  `${process.env.CLIENT_URL}/cart`
+    //     })
+        
+    //     res.status(200).send('hello');
+    // }
+    // catch (error) {
+    //     res.status(500).json({ error: error.message });
+    // }
+    
+    // session_model.getSession({ session_id })
+    // .then(response => {
+    //     data = {...data, user_id: response.user_id};
+    //     cart_model.deleteFromCart(data)
+    //     .then(response => {
+            
+    //     })
+        
+    // })
+    // .catch(error => {
+    //     res.status(500).send(error);
+    // });
 })
 
 app.listen(port, () => {

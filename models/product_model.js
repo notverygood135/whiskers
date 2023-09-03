@@ -11,7 +11,20 @@ const pool = new Pool({
 
 const getHomeProducts = () => {
     return new Promise(function(resolve, reject) {
-        pool.query('SELECT * FROM products', [], (error, results) => {
+        pool.query('SELECT * FROM products', (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        })
+    })
+}
+
+const getCheckoutProducts = (body) => {
+    const placeholders = body.map((_, index) => `$${index + 1}`).join(', ');
+    const query = `SELECT * FROM products WHERE product_id IN (${placeholders})`;
+    return new Promise(function(resolve, reject) {
+        pool.query(query, body, (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -126,6 +139,7 @@ const deleteProduct = (body) => {
 module.exports = {
     getHomeProducts,
     getProducts,
+    getCheckoutProducts,
     getProductDetails,
     createProduct,
     deleteProduct

@@ -6,7 +6,6 @@ import CartProduct from "./CartProduct";
 import styles from './Cart.module.css'
 
 export default function Cart() {
-  console.log('a');
   const [checkedAll, setCheckedAll] = useState(false);
   const [products, setProducts] = useState({});
   const [total, setTotal] = useState(0);
@@ -26,13 +25,14 @@ export default function Cart() {
       <CartProduct
         key={product.product_id}
         id={product.product_id}
+        sellerId={product.seller_id}
         image={product.image}
         productName={product.product_name}
-        quantity={product.quantity}
         maxQuantity={product.max_quantity}
         price={product.price}
         discount={product.discount}
         discountedPrice={product.discounted_price}
+        quantity={product.quantity}
         checkedProducts={checkedProducts}
         checkedAll={checkedAll}
         deleteProduct={deleteProduct}
@@ -44,9 +44,9 @@ export default function Cart() {
     setCheckedAll(!checkedAll);
   }
 
-  function checkedProducts(pid, checked, sum) {
+  function checkedProducts(pid, productName, checked, sum, quantity, sellerId, image, discountedPrice) {
     let newProducts = products;
-    newProducts[pid] = {checked, sum};
+    newProducts[pid] = {checked, sum, quantity, sellerId, image, discountedPrice, productName};
     setProducts({...newProducts});
   }
 
@@ -89,7 +89,14 @@ export default function Cart() {
       {cartProducts}
       <div className={styles.checkout}>
         Total: {`${total.toFixed(2)} (${Object.keys(products).length} items)`}
-        <button className={styles.checkoutButton}><NavLink to='/checkout'>Checkout</NavLink></button>
+        <button className={styles.checkoutButton}>
+          <NavLink 
+            to='/checkout'
+            state={{products: products, total: total}}
+          >
+            Checkout
+          </NavLink>
+        </button>
       </div>
     </>
   )
