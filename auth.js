@@ -56,16 +56,18 @@ app.post('/auth/load', (req, res) => {
     // }
 
     try {
-        session_model.deleteSession({ localSession })
-        .then(response => {
-            const session = req.session;
-            const session_id = session.id;
-            const user_id = localUserId;
-            session.user_id = localUserId;
-            session.authenticated = true;
-            session_model.createSession({ session_id, user_id });
-            res.status(200).send(session_id);
-        });
+        if (localSession != '' && !sessionId) {
+            session_model.deleteSession({ localSession })
+            .then(response => {
+                const session = req.session;
+                const session_id = session.id;
+                const user_id = localUserId;
+                session.user_id = localUserId;
+                session.authenticated = true;
+                session_model.createSession({ session_id, user_id });
+                res.status(200).send(session_id);
+            });
+        }
     }
     catch (err) {
         console.log(err);

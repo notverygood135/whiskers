@@ -54,10 +54,13 @@ export default function Sell() {
   return (
     <>
     <form onSubmit={handleSubmit(onSubmit)} className={styles.upload}>
-      <div className={styles.imageWrapper}>
+      <div className={!preview ? `${styles.imageWrapper}` : `${styles.imageWrapper} ${styles.active}`}>
         <label htmlFor="name" className={styles.imageInput}>
-          <AiOutlineUpload className={styles.uploadIcon}/>
-          {!preview && <p className={styles.selectImage}>Choose an image</p>}
+          {!preview &&
+          <>
+            <AiOutlineUpload className={styles.uploadIcon}/>
+            <p className={styles.selectImage}>Choose an image</p>
+          </>}
         </label>
         <input 
           type='file'

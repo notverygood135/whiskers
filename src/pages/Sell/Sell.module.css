@@ -68,6 +68,10 @@ input[type=file]::-webkit-file-upload-button {
     background: var(--lightGray);
 }
 
+.active {
+    background: none;
+}
+
 .image {
     max-width: 100%;
     max-height: 100%;
