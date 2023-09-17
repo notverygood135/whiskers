@@ -36,10 +36,42 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/auth', (req, res, next) => {
-    res.send('hi');
-    next();
-})
+app.post('/auth/load', (req, res) => {
+    const sessionId = req.cookies['session'];
+    const localSession = req.body.localSession;
+    const localUserId = req.body.localUserId;
+    // if (sessionId) {
+    //     console.log(sessionId);
+    //     res.status(200).send('hi');
+    // }
+    // else if (!sessionId && localSession != '') {
+    //     res.cookie('session', `s%${localSession}`, {httpOnly: true, secure: false});
+    //     res.status(200).send('bye');
+    // }
+    // if (localSession != '') {
+    //     res.cookie('session', `s%3A${localSession}`, {maxAge: 3600000, httpOnly: true, secure: false});
+    // }
+    // else {
+    //     res.cookie('session', '', {maxAge: -1, httpOnly: true, secure: false});
+    // }
+
+    try {
+        session_model.deleteSession({ localSession })
+        .then(response => {
+            const session = req.session;
+            const session_id = session.id;
+            const user_id = localUserId;
+            session.user_id = localUserId;
+            session.authenticated = true;
+            session_model.createSession({ session_id, user_id });
+            res.status(200).send(session_id);
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send('bye');
+    }
+});
 
 app.post('/auth/register', async (req, res) => {
     try {
@@ -67,13 +99,12 @@ app.post('/auth/login', (req, res) => {
         }
         else if (await bcrypt.compare(req.body.password, user.password)) {
             const session = req.session;
-            console.log(`auth: ${req.session.id}`);
             const user_id = user.user_id;
             const session_id = session.id;
             session.user_id = user.user_id;
             session.authenticated = true;
             session_model.createSession({ session_id, user_id });
-            res.status(200).send(true);
+            res.status(200).send({ session_id, user_id });
         }
         else {
             res.send('Invalid password');
@@ -86,9 +117,6 @@ app.post('/auth/login', (req, res) => {
 
 app.get('/auth/logout', (req, res) => {
     try {
-        // res.cookie('accessToken', '', { maxAge: -1 });
-        // res.cookie('refreshToken', '', { maxAge: -1 });
-        // res.cookie('loggedIn', '', { maxAge: -1 });
         const session_id = req.cookies['session'].split(':')[1].split('.')[0];
         session_model.deleteSession({ session_id })
         .then(response => {

@@ -7,7 +7,7 @@ import { LoginContext } from "../../context/LoginContext";
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const { isAuth, setAuth } = useContext(LoginContext);
+  const { setUserId, setSession } = useContext(LoginContext);
   const onSubmit = data => {
     fetch('http://localhost:3001/auth/login', {
       method: 'POST',
@@ -18,10 +18,12 @@ export default function Login() {
       credentials: 'include'
     })
     .then(response => {
-      return response.text();
+      return response.json();
     })
     .then(data => {
-      setAuth(data)
+      console.log(data);
+      setSession(data.session_id);
+      setUserId(data.user_id);
       navigate('/');
     })
     .catch((error) => {
@@ -38,7 +40,7 @@ export default function Login() {
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <h2>Login</h2>
             <input type='text' placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
-            <input type='text' placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
+            <input type='password' placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
             <button className={styles.button} id={styles.signInButton} type='submit'>Login</button>
           </form>
           <div className={styles.signUp}>

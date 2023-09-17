@@ -211,7 +211,7 @@ app.post('/checkout', authenticate, async (req, res) => {
                             product_data: {
                                 name: product.product_name
                             },
-                            unit_amount: product.discounted_price * 100
+                            unit_amount: (product.discounted_price * 100).toFixed(0)
                         },
                         quantity: quantity[product.product_id]
                     }
@@ -219,21 +219,6 @@ app.post('/checkout', authenticate, async (req, res) => {
                 success_url: `${process.env.CLIENT_URL}/success`,
                 cancel_url:  `${process.env.CLIENT_URL}/cart`
             })
-
-            // const a = response.map(product => {
-            //     console.log(quantity[product.product_id]);
-            //     return {
-            //         price_data: {
-            //             currency: 'usd',
-            //             product_data: {
-            //                 name: product.product_name
-            //             },
-            //             unit_amount: product.discounted_price * 100
-            //         },
-            //         quantity: quantity[product.product_id]
-            //     }
-            // });
-            // console.log(a);
             res.json({ url: session.url })
         }
         catch (error) {
@@ -244,34 +229,6 @@ app.post('/checkout', authenticate, async (req, res) => {
     .catch(error => {
         res.status(500).send(error);
     })
-    
-    // try {
-    //     const session = await stripe.checkout.session.create({
-    //         payment_method_types: ['card'],
-    //         mode: 'payment',
-    //         line_items: ,
-    //         success_url: `${process.env.CLIENT_URL}/success`,
-    //         cancel_url:  `${process.env.CLIENT_URL}/cart`
-    //     })
-        
-    //     res.status(200).send('hello');
-    // }
-    // catch (error) {
-    //     res.status(500).json({ error: error.message });
-    // }
-    
-    // session_model.getSession({ session_id })
-    // .then(response => {
-    //     data = {...data, user_id: response.user_id};
-    //     cart_model.deleteFromCart(data)
-    //     .then(response => {
-            
-    //     })
-        
-    // })
-    // .catch(error => {
-    //     res.status(500).send(error);
-    // });
 })
 
 app.listen(port, () => {

@@ -17,7 +17,7 @@ function ProductItem(props) {
           <img src={`/products/${image}`} alt="test" className={styles.image}/>
         </div>
         <div className={styles.text}>
-          <h3>{truncate(productName, 21)}</h3>
+          <h3>{truncate(productName, 20)}</h3>
           {discount ? 
             <div className={styles.price}>
               <del className={styles.oldPrice}>
@@ -31,14 +31,6 @@ function ProductItem(props) {
             </div>
           }
         </div>
-        {/* <div className={styles.buttonWrapper}>
-          <button className={styles.button} id={styles.buyNow}>Buy now</button>
-          <button className={styles.button} id={styles.addToCart}>Add to cart</button>
-        </div>
-        <div className={styles.buttonWrapperMobile}>
-          <NavLink to='/'><button className={styles.button} id={styles.buyNow}><AiTwotoneShopping /></button></NavLink>
-          <NavLink to='/'><button className={styles.button} id={styles.addToCart}><AiOutlineShoppingCart /></button></NavLink>
-        </div> */}
       </div>
     </div>
     </NavLink>

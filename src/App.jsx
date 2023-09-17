@@ -13,8 +13,28 @@ import Sell from './pages/Sell/Sell';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
 import Success from './pages/Checkout/Success';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const localSession = localStorage.getItem('session');
+    const localUserId = localStorage.getItem('userId');
+    fetch('http://localhost:3001/auth/load', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ localSession, localUserId }),
+      credentials: 'include'
+    })
+    .then(response => {
+      console.log(response.text());
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }, []);
+
   return (
     <BrowserRouter>
     <LoginProvider child = {(

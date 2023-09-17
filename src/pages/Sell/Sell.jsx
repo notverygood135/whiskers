@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Sell.module.css"
+import { AiOutlineUpload } from "react-icons/ai"
 
 export default function Sell() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -41,7 +42,6 @@ export default function Sell() {
     })
     .then(response => {
       console.log(response.json());
-      // return response.json();
     })
   }
 
@@ -56,7 +56,8 @@ export default function Sell() {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.upload}>
       <div className={styles.imageWrapper}>
         <label htmlFor="name" className={styles.imageInput}>
-          {!preview && <h1>Select Image</h1>}
+          <AiOutlineUpload className={styles.uploadIcon}/>
+          {!preview && <p className={styles.selectImage}>Choose an image</p>}
         </label>
         <input 
           type='file'
@@ -73,7 +74,7 @@ export default function Sell() {
       <div className={styles.textWrapper}>
         <label htmlFor="" className={styles.dropdownWrapper}>
           <select {...register('category_id', {required: true})} className={styles.dropdown}>
-            <option value="" disabled selected hidden>Select your option</option>
+            <option value="" disabled selected hidden>Select</option>
             {categories}
           </select>
         </label>
@@ -84,7 +85,7 @@ export default function Sell() {
           <input type='text' placeholder="Discount" {...register('discount', {required: true})} className={styles.textbox}/>
         </div>
         <textarea placeholder="Description" {...register('description', {required: true})} className={styles.textbox} id={styles.textboxDescription}/>
-        <button type='submit'>Finish</button>
+        <button type='submit' className={styles.finish}>Finish</button>
       </div>
     </form>
     </> 

@@ -44,8 +44,8 @@ export default function Register() {
               <input type='text' placeholder="Last Name" className={styles.formField} id={styles.nameField} {...register('last_name', { required: true })} />
             </div>
             <input type='text' placeholder="Username" className={styles.formField} {...register('username', { required: true })} />
-            <input type='text' placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
-            <input type='text' placeholder="Confirm Password" className={styles.formField} {...register('confirmPassword', { required: true })} />
+            <input type='password' placeholder="Password" className={styles.formField} {...register('password', { required: true })} />
+            <input type='password' placeholder="Confirm Password" className={styles.formField} {...register('confirmPassword', { required: true })} />
             <input type='text' placeholder="E-mail" className={styles.formField} {...register('email', { required: true })} />
             <button className={styles.button} id={styles.signInButton} type='submit'>Sign up</button>
           </form>

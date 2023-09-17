@@ -12,7 +12,6 @@ function Navbar() {
     const search = data.search;
     const url = search ? `/shop/?search=${search}` : `/shop`;
     navigate(url);
-    // console.log(url)
   }
 
   return (
