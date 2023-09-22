@@ -38,7 +38,6 @@ app.use(function (req, res, next) {
 
 app.post('/auth/load', (req, res) => {
     const sessionId = req.cookies['session'];
-    const localSession = req.body.localSession;
     const localUserId = req.body.localUserId;
     // if (sessionId) {
     //     console.log(sessionId);
@@ -56,8 +55,8 @@ app.post('/auth/load', (req, res) => {
     // }
 
     try {
-        if (localSession != '' && !sessionId) {
-            session_model.deleteSession({ localSession })
+        if (localUserId != '' && !sessionId) {
+            session_model.deleteUserSession({ localUserId })
             .then(response => {
                 const session = req.session;
                 const session_id = session.id;

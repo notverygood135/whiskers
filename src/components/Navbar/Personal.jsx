@@ -5,10 +5,10 @@ import { useContext } from 'react';
 import { LoginContext } from '../../context/LoginContext';
 
 export default function Personal() {
-  const { session } = useContext(LoginContext);
-  console.log(session)
+  const { userId } = useContext(LoginContext);
+  console.log(userId)
   return (
-    !session ?
+    !userId ?
     <ul className={styles.menu}>
       <li>
         <NavLink to='/login' className={styles.navItem}>

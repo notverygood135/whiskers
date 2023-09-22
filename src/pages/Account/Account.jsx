@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Account() {
   const navigate = useNavigate();
-  const { setSession, setUserId } = useContext(LoginContext);
+  const { setUserId } = useContext(LoginContext);
   
   function logout() {
     fetch('http://localhost:3001/auth/logout', {
@@ -18,7 +18,6 @@ export default function Account() {
     .catch((error) => {
       console.log(error);
     })
-    setSession('');
     setUserId('');
   }
 

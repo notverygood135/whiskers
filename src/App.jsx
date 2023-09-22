@@ -17,14 +17,13 @@ import { useEffect } from 'react';
 
 function App() {
   useEffect(() => {
-    const localSession = localStorage.getItem('session');
     const localUserId = localStorage.getItem('userId');
     fetch('http://localhost:3001/auth/load', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ localSession, localUserId }),
+      body: JSON.stringify({ localUserId }),
       credentials: 'include'
     })
     .then(response => {

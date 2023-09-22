@@ -46,8 +46,21 @@ const deleteSession = (body) => {
     })
 }
 
+const deleteUserSession = (body) => {
+    const { user_id } = body;
+    return new Promise(function(resolve, reject) {
+        pool.query('DELETE FROM session WHERE user_id = $1', [user_id], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(`logged out`);
+        })
+    })
+}
+
 module.exports = {
     getSession,
     createSession,
-    deleteSession
+    deleteSession,
+    deleteUserSession
 }

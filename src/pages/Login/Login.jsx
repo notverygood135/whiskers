@@ -7,7 +7,7 @@ import { LoginContext } from "../../context/LoginContext";
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const { setUserId, setSession } = useContext(LoginContext);
+  const { setUserId } = useContext(LoginContext);
   const onSubmit = data => {
     fetch('http://localhost:3001/auth/login', {
       method: 'POST',
@@ -22,7 +22,6 @@ export default function Login() {
     })
     .then(data => {
       console.log(data);
-      setSession(data.session_id);
       setUserId(data.user_id);
       navigate('/');
     })
