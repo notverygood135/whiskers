@@ -4,4 +4,148 @@
     --lightPinkHover: #f7abd5;
     --darkPink: #ff4db0;
     --textBlack: #231f1e;
+    --textGray: #bababa;
+    --lightGray: #eeeeee;
 }
+
+.upload {
+    max-width: 100vw;
+    height: 75vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 6rem 0 0 6rem;
+}
+
+label {
+    margin: 0;
+}
+
+.imageInput {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--textGray);
+    margin: 0;
+}
+
+.uploadIcon {
+    font-size: 5rem;
+}
+
+.selectImage {
+    font-weight: 400;
+}
+
+input[type=file] {
+    display: none;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    width: 0;
+}
+
+.details {
+    max-width: 100vw;
+    height: 88vh;
+    display: flex;
+    padding: 2rem 6rem;
+}
+
+.imageWrapper {
+    width: 15rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--lightGray);
+    border-radius: 50%;
+}
+
+.active {
+    background: none;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+.textWrapper {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.userDetails {
+   display: grid;
+   grid-template-columns: 10rem 10rem;
+   grid-template-rows: 3rem 3rem 3rem;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 2.4rem;
+}
+
+h2 {
+    font-size: 3rem;
+    color: var(--textBlack);
+}
+
+p {
+    color: var(--textBlack);
+}
+
+.buttonWrapper {
+    display: flex;
+    height: 3rem;
+    width: 80%;
+    margin-top: 1rem;
+    justify-content: space-between;
+}
+
+.button {
+    height: 100%;
+    width: 10rem;    
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    background: var(--lightPink);
+    transition: background 0.2s ease-in;
+    border: 0.1rem solid var(--lightPink);
+}
+
+.button:hover {
+    background: var(--darkPink);
+    transition: background 0.2s ease-in;
+    cursor: pointer;
+}
+
+#logout {
+    color: var(--lightPink);
+    background: var(--veryLightPink);
+    border: 0.1rem solid var(--lightPink);
+    transition: color 0.2s ease-in, background 0.2s ease-in, border 0.2s ease-in;
+}
+
+#logout:hover {
+    color: var(--darkPink);
+    background: white;
+    border: 0.1rem solid var(--darkPink);
+    transition: color 0.2s ease-in, background 0.2s ease-in, border 0.2s ease-in;
+}
+

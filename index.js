@@ -44,6 +44,27 @@ app.get('/users', (req, res) => {
     })
 });
 
+app.get('/users/:id', (req, res) => {
+    user_model.getUserDetails(req.params.id)
+    .then(response => {
+        res.status(200).send(response);
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+});
+
+app.post('/users', (req, res) => {
+    console.log(req.body);
+    user_model.updateUser(req.body)
+    .then(response => {
+        res.status(200).send(response);
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+});
+
 app.delete('/users/:id', (req, res) => {
     user_model.deleteUser(req.params.id)
     .then(response => {
@@ -115,7 +136,6 @@ app.post('/upload', (req, res) => {
     if (!req.files) {
         return res.status(400).send("No files were uploaded.");
     }
-    // console.log(req.files.image);
 });
 
 app.post('/products', authenticate, (req, res) => {
@@ -205,6 +225,7 @@ app.post('/checkout', authenticate, async (req, res) => {
                 payment_method_types: ['card'],
                 mode: 'payment',
                 line_items: response.map(product => {
+                    console.log(product.product_id);
                     return {
                         price_data: {
                             currency: 'usd',

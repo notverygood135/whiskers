@@ -12,7 +12,6 @@ export default function Cart() {
 
   useEffect(() => {
     setTotal(calculateTotal(products));
-    console.log(products);
   }, [products]);
 
   const { data, loading, error } = useFetch('http://localhost:3000/cart');
@@ -20,7 +19,7 @@ export default function Cart() {
   if (error) console.log(error);
 
   const fetchedData = JSON.parse(data);
-  const cartProducts = fetchedData?.map(product => {
+  let cartProducts = fetchedData?.map(product => {
     return (
       <CartProduct
         key={product.product_id}
@@ -64,6 +63,9 @@ export default function Cart() {
         delete prevProducts[pid];
         return {...prevProducts}
       })
+      cartProducts = cartProducts.filter(cartProduct => cartProduct.key != pid);
+
+      console.log(pid);
       return response.text()
     })
     .catch(error => {
@@ -88,7 +90,7 @@ export default function Cart() {
       </div>
       {cartProducts}
       <div className={styles.checkout}>
-        Total: {`${total.toFixed(2)} (${Object.keys(products).length} items)`}
+        Total: {`$${total.toFixed(2)}`}
         <button className={styles.checkoutButton}>
           <NavLink 
             to='/checkout'

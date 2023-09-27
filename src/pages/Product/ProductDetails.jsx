@@ -7,7 +7,6 @@ import styles from './Product.module.css'
 import { LoginContext } from '../../context/LoginContext';
 
 function ProductDetails() {
-  const { isAuth, setAuth } = useContext(LoginContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [buyQuantity, setBuyQuantity] = useState(1);
   const { register, handleSubmit, formState: { errors } } = useForm();

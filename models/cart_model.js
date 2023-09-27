@@ -13,12 +13,17 @@ const getCart = (body) => {
     const user_id = body;
     console.log(body);
     return new Promise(function(resolve, reject) {
-        pool.query('SELECT cart.product_id, product_name, seller_id, cart.quantity as quantity, products.quantity as max_quantity, price, discounted_price, image FROM cart JOIN products ON cart.product_id = products.product_id WHERE cart.user_id = $1', [user_id],
+        pool.query(`SELECT cart.product_id, product_name, seller_id, cart.quantity as quantity, products.quantity as max_quantity, price, price * (100 - discount) / 100.0 AS discounted_price, image 
+        FROM cart JOIN products ON cart.product_id = products.product_id 
+        WHERE cart.user_id = $1`, [user_id],
         (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
             }
+            // if (results) {
+            //     resolve(results.rows);
+            // }
             resolve(results.rows);
         })
     })

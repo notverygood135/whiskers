@@ -7,6 +7,7 @@ export default function CartProduct(props) {
   const { id, sellerId, image, productName, quantity, maxQuantity, price, discountedPrice, checkedAll, checkedProducts, deleteProduct } = props;
   const [checked, setChecked] = useState(false);
   const [buyQuantity, setBuyQuantity] = useState(quantity);
+  const [deleted, setDeleted] = useState(false);
   const { register, getValues, setValue, formState: { errors } } = useForm();
   
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function CartProduct(props) {
   }
 
   return (
+    !deleted &&
     <form className={styles.product}>
       <input 
         type="checkbox" 
@@ -82,7 +84,15 @@ export default function CartProduct(props) {
         <button type='button' className={styles.changeQuantityButton} onClick={handleAdd}>+</button>
       </div>
       <p className={styles.total}>${(discountedPrice * buyQuantity).toFixed(2)}</p>
-      <button type='button' className={styles.delete} onClick={() => deleteProduct(id)}><AiFillDelete/></button>
+      <button type='button' 
+        className={styles.delete} 
+        onClick={() => {
+          deleteProduct(id);
+          setDeleted(true);
+        }}
+      >
+        <AiFillDelete/>
+      </button>
     </form>
   )
 }

@@ -39,20 +39,6 @@ app.use(function (req, res, next) {
 app.post('/auth/load', (req, res) => {
     const sessionId = req.cookies['session'];
     const localUserId = req.body.localUserId;
-    // if (sessionId) {
-    //     console.log(sessionId);
-    //     res.status(200).send('hi');
-    // }
-    // else if (!sessionId && localSession != '') {
-    //     res.cookie('session', `s%${localSession}`, {httpOnly: true, secure: false});
-    //     res.status(200).send('bye');
-    // }
-    // if (localSession != '') {
-    //     res.cookie('session', `s%3A${localSession}`, {maxAge: 3600000, httpOnly: true, secure: false});
-    // }
-    // else {
-    //     res.cookie('session', '', {maxAge: -1, httpOnly: true, secure: false});
-    // }
 
     try {
         if (localUserId != '' && !sessionId) {
@@ -148,3 +134,7 @@ module.exports = {
 app.listen(port, () => {
     console.log(`Authenticate server running on port ${port}`);
 });
+
+app.get('/auth', (req, res) => {
+    res.status(200).send('Server is running');
+})
