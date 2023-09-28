@@ -110,7 +110,7 @@ const getProductDetails = (body) => {
 }
 
 const createProduct = (body) => {
-    // const { product_name, category_id, seller_id, price, quantity, description, discount, image } = body;
+
     return new Promise(function(resolve, reject) {
         const { product_name, category_id, user_id, price, quantity, description, discount, image } = body;
         const product_id = nanoid();
@@ -121,7 +121,7 @@ const createProduct = (body) => {
             if (error) {
                 reject(error);
             }
-            resolve(`A new product has been added`);
+            resolve(results.rows[0]);
         })
     })
 }

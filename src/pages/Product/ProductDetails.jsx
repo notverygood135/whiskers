@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
 import getProductDetails from '../../utils/getProductDetails';
 import styles from './Product.module.css'
-import { LoginContext } from '../../context/LoginContext';
 
 function ProductDetails() {
   const [searchParams, setSearchParams] = useSearchParams();

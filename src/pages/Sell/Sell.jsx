@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Sell.module.css"
 import { AiOutlineUpload } from "react-icons/ai"
@@ -8,6 +9,7 @@ export default function Sell() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { data, loading, error } = useFetch('http://localhost:3000/categories');
   const [preview, setPreview] = useState(false);
+  const navigate = useNavigate();
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.log(error);
@@ -41,7 +43,15 @@ export default function Sell() {
       body: JSON.stringify({ image, category_id, product_name, quantity, price, discount, description })
     })
     .then(response => {
-      console.log(response.json());
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      const url = `/product/${product_name.replace(/\s+/g, '-')}?pid=${data.product_id}`;
+      navigate(url);
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 
@@ -77,7 +87,7 @@ export default function Sell() {
       <div className={styles.textWrapper}>
         <label htmlFor="" className={styles.dropdownWrapper}>
           <select {...register('category_id', {required: true})} className={styles.dropdown}>
-            <option value="" disabled selected hidden>Select</option>
+            <option value="" disabled defaultValue hidden>Select</option>
             {categories}
           </select>
         </label>
