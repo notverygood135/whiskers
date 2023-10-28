@@ -45,7 +45,7 @@ export default function Cart() {
 
   function checkedProducts(pid, productName, checked, sum, quantity, sellerId, image, discountedPrice) {
     let newProducts = products;
-    newProducts[pid] = {checked, sum, quantity, sellerId, image, discountedPrice, productName};
+    newProducts[pid] = {checked, sum, quantity, image, discountedPrice, productName};
     setProducts({...newProducts});
   }
 

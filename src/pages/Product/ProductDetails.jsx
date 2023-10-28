@@ -1,12 +1,15 @@
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate, NavLink } from 'react-router-dom'
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
 import getProductDetails from '../../utils/getProductDetails';
 import styles from './Product.module.css'
+import { LoginContext } from '../../context/LoginContext';
 
 function ProductDetails() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { userId } = useContext(LoginContext);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [buyQuantity, setBuyQuantity] = useState(1);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const pid = searchParams.get('pid');
@@ -16,7 +19,10 @@ function ProductDetails() {
   if (error) console.log(error);
 
   const productDetails = JSON.parse(data);
-  const { category, description, discount, image, priceWhole, priceDecimal, newPriceWhole, newPriceDecimal, productName, quantity } = productDetails ? getProductDetails(productDetails) : {}
+  const { description, image, priceWhole, priceDecimal, newPriceWhole, newPriceDecimal, productName, quantity } = productDetails ? getProductDetails(productDetails) : {}
+  const discountedPrice = newPriceWhole + newPriceDecimal / 100;
+  // const checked = true;
+  // const sum = discountedPrice;
 
   function handleAdd() {
     if (buyQuantity < quantity) {
@@ -44,6 +50,27 @@ function ProductDetails() {
   }
 
   function onSubmit() {
+    fetch('http://localhost:3000/cart', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({quantity: buyQuantity, product_id: pid})
+    })
+    .then(response => {
+      return response.text()
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+  function addToCart() {
+    if (userId == "") {
+      navigate('/login');
+      return;
+    }
     fetch('http://localhost:3000/cart', {
       method: 'POST',
       credentials: 'include',
@@ -96,8 +123,39 @@ function ProductDetails() {
             <button type='button' className={styles.changeQuantityButton} onClick={handleAdd}>+</button>
           </div>
           <div className={styles.buttonWrapper}>
-            <button type='submit' className={styles.button} id={styles.buyNow}>Buy now</button>
-            <button type='submit' className={styles.button} id={styles.addToCart}>Add to cart</button>
+            {/* <button type='button' 
+              className={styles.button} 
+              id={styles.buyNow}
+              onClick={() => buyNow()}
+            >
+              Buy now
+            </button> */}
+            
+            <button type='button' 
+              className={styles.button} 
+              id={styles.buyNow}
+            >
+              {userId ? 
+                <NavLink
+                  className={styles.link}
+                  to='/checkout'
+                  state={{products: {pid: {checked: true, sum: discountedPrice * buyQuantity, quantity: buyQuantity, image, discountedPrice, productName}}, total: discountedPrice * buyQuantity}}
+                >
+                  Buy now
+                </NavLink> : 
+                <div onClick={() => navigate('/login')}>Buy now</div>
+              }
+            </button>
+            
+            {/* <button type='submit' className={styles.button} id={styles.addToCart}>Add to cart</button> */}
+            <button 
+              type='button' 
+              className={styles.button} 
+              id={styles.addToCart} 
+              onClick={() => addToCart()}
+            >
+              Add to cart
+            </button>
           </div>
         </form>
       </div>

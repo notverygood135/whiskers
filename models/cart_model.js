@@ -33,7 +33,11 @@ const addToCart = (body) => {
     const { user_id, product_id, quantity } = body;
     console.log(body);
     return new Promise(function(resolve, reject) {
-        pool.query('INSERT INTO cart VALUES ($1, $2, $3, CURRENT_TIMESTAMP) RETURNING *', [user_id, product_id, quantity], 
+        pool.query(
+            `INSERT INTO cart VALUES ($1, $2, $3, CURRENT_TIMESTAMP) 
+            ON CONFLICT ON CONSTRAINT cart_pkey
+            DO UPDATE SET quantity = $3
+            RETURNING *`, [user_id, product_id, quantity], 
         (error, results) => {
             if (error) {
                 console.log(error);

@@ -38,8 +38,6 @@ export default function ShopProducts(props) {
         <h2>Results</h2>
         <div className={styles.resultsSort}>
           <h4>Sort by</h4>
-          <button onClick={() => handleSort('popularity')}>Popularity</button>
-          <button onClick={() => handleSort('reviews')}>Reviews</button>
           <button onClick={() => handleSort('price')}>Price</button>
         </div>
       </div>

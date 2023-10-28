@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './Checkout.module.css'
 
 export default function CheckoutProduct(props) {
-  const { id, sellerId, image, productName, quantity, discountedPrice, sum } = props;
+  const { image, productName, quantity, discountedPrice, sum } = props;
 
   return (
     <form className={styles.product}>
